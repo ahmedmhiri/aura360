@@ -10,8 +10,10 @@ const AUTOROTATE_SPEED = 0.025; // degrees per frame, roughly
 // inside of a sphere and lets the user drag to look around; falls back to a
 // slow auto-rotate when idle. Pure three.js (no controls add-on) to keep the
 // bundle small — only longitude/latitude are tracked, no roll/zoom.
-export default function Pano360({ src, className = "" }) {
+export default function Pano360({ src, className = "", onInteractingChange }) {
   const canvasRef = useRef(null);
+  const onInteractingChangeRef = useRef(onInteractingChange);
+  onInteractingChangeRef.current = onInteractingChange;
 
   useEffect(() => {
     if (!src || !canvasRef.current) return;
@@ -57,6 +59,7 @@ export default function Pano360({ src, className = "" }) {
       lastY = e.clientY;
       lastInteraction = performance.now();
       canvas.style.cursor = "grabbing";
+      onInteractingChangeRef.current?.(true);
     };
     const onPointerMove = (e) => {
       if (!dragging) return;
@@ -69,8 +72,10 @@ export default function Pano360({ src, className = "" }) {
       lastInteraction = performance.now();
     };
     const onPointerUp = () => {
+      if (!dragging) return;
       dragging = false;
       canvas.style.cursor = "grab";
+      onInteractingChangeRef.current?.(false);
     };
 
     canvas.addEventListener("pointerdown", onPointerDown);
@@ -110,6 +115,7 @@ export default function Pano360({ src, className = "" }) {
 
     return () => {
       disposed = true;
+      if (dragging) onInteractingChangeRef.current?.(false);
       cancelAnimationFrame(frameId);
       resizeObserver.disconnect();
       canvas.removeEventListener("pointerdown", onPointerDown);

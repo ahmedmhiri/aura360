@@ -13,14 +13,19 @@ export default function Hero({ locale, dict, images }) {
   const reduce = useReducedMotion();
   const slides = images && images.length ? images : [];
   const [index, setIndex] = useState(0);
+  const [interacting, setInteracting] = useState(false);
+  // Bumped every time a fresh countdown starts (slide change or resume from a
+  // pause), so the progress bar below can key off it and restart from 0%.
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    if (slides.length <= 1) return;
+    if (slides.length <= 1 || interacting) return;
+    setTick((t) => t + 1);
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % slides.length);
     }, DURATION);
     return () => clearInterval(id);
-  }, [slides.length]);
+  }, [slides.length, interacting, index]);
 
   const lines = dict.title.split("\n");
 
@@ -39,7 +44,11 @@ export default function Hero({ locale, dict, images }) {
           >
             {slides[index] ? (
               slides[index].is360 ? (
-                <Pano360 src={slides[index].src} className="absolute inset-0 h-full w-full" />
+                <Pano360
+                  src={slides[index].src}
+                  className="absolute inset-0 h-full w-full"
+                  onInteractingChange={setInteracting}
+                />
               ) : (
                 <motion.div
                   className="absolute inset-0"
@@ -64,12 +73,12 @@ export default function Hero({ locale, dict, images }) {
           </motion.div>
         </AnimatePresence>
         {/* Aura: soft light gradient + bottom shade for legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/55" />
-        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_120%,rgba(0,0,0,0.55),transparent)]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/55" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_120%,rgba(0,0,0,0.55),transparent)]" />
       </div>
 
       {/* Top annotation row */}
-      <div className="absolute inset-x-0 top-0 z-10 pt-24 sm:pt-28">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 pt-24 sm:pt-28">
         <div className="mx-auto flex max-w-site items-center justify-between px-5 sm:px-8">
           <motion.span
             className="annotation text-bone/70"
@@ -95,7 +104,7 @@ export default function Hero({ locale, dict, images }) {
       </div>
 
       {/* Headline + CTAs */}
-      <div className="relative z-10 flex h-full items-end">
+      <div className="pointer-events-none relative z-10 flex h-full items-end">
         <div className="mx-auto w-full max-w-site px-5 pb-16 sm:px-8 sm:pb-20">
           <h1 className="font-display text-5xl font-bold uppercase text-bone display-tight sm:text-7xl lg:text-8xl">
             {lines.map((line, i) => (
@@ -122,7 +131,7 @@ export default function Hero({ locale, dict, images }) {
           </motion.p>
 
           <motion.div
-            className="mt-9 flex flex-wrap items-center gap-4"
+            className="pointer-events-auto mt-9 flex flex-wrap items-center gap-4"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.75, duration: 0.8 }}
@@ -150,10 +159,10 @@ export default function Hero({ locale, dict, images }) {
               </span>
               <div className="h-px flex-1 max-w-[220px] bg-bone/25">
                 <motion.div
-                  key={index}
+                  key={tick}
                   className="h-full bg-bone"
                   initial={{ width: reduce ? "100%" : "0%" }}
-                  animate={{ width: "100%" }}
+                  animate={interacting ? undefined : { width: "100%" }}
                   transition={{ duration: reduce ? 0 : DURATION / 1000, ease: "linear" }}
                 />
               </div>
