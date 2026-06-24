@@ -1,0 +1,179 @@
+{
+  "meta": {
+    "siteName": "AURA360LAB",
+    "defaultTitle": "AURA360LAB — Architecture, visualisation 3D & design d'intérieur",
+    "defaultDescription": "AURA360LAB est un studio d'architecture et de visualisation qui conçoit des bâtiments, des intérieurs et les images qui leur donnent vie."
+  },
+  "nav": {
+    "home": "Accueil",
+    "portfolio": "Portfolio",
+    "about": "Studio",
+    "contact": "Contact",
+    "startProject": "Démarrer un projet",
+    "skipToContent": "Aller au contenu"
+  },
+  "hero": {
+    "eyebrow": "Architecture / Visualisation 3D / Intérieurs",
+    "title": "Concevoir l'espace.\nRévéler la lumière.",
+    "subtitle": "Un studio d'architecture et de visualisation qui façonne des bâtiments, des intérieurs et les images qui les rendent réels.",
+    "viewPortfolio": "Voir le portfolio",
+    "contact": "Nous contacter",
+    "panorama": "Panorama 360°"
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "Trois disciplines, une vision continue",
+    "intro": "Du premier croquis à l'image finale, nous gardons l'idée intacte à chaque étape du projet.",
+    "items": {
+      "architecture": {
+        "name": "Architecture",
+        "description": "Conception, esquisse et études détaillées pour des bâtiments résidentiels, culturels et commerciaux — ancrées dans le site, la lumière et l'usage."
+      },
+      "visualization": {
+        "name": "Visualisation 3D",
+        "description": "Images, animations et panoramas 360° photoréalistes qui permettent de parcourir un espace bien avant sa construction."
+      },
+      "interior": {
+        "name": "Design d'intérieur",
+        "description": "Matériaux, mobilier et atmosphère composés en intérieurs pensés jusque dans le moindre détail."
+      }
+    },
+    "learnMore": "Parler de votre projet"
+  },
+  "featured": {
+    "eyebrow": "Travaux sélectionnés",
+    "title": "Projets récents",
+    "viewAll": "Voir tous les projets",
+    "index": "Index"
+  },
+  "aboutPreview": {
+    "eyebrow": "Le studio",
+    "statement": "Nous croyons qu'un bâtiment doit être ressenti avant d'être construit. AURA360LAB réunit architecture, design d'intérieur et visualisation pour qu'une idée se lise clairement — en plan, en lumière et en immersion totale.",
+    "more": "En savoir plus"
+  },
+  "stats": {
+    "projects": "Projets livrés",
+    "years": "Ans de pratique",
+    "countries": "Pays",
+    "awards": "Prix de design"
+  },
+  "contactCta": {
+    "eyebrow": "Démarrer un projet",
+    "title": "Un espace en tête ?",
+    "body": "Parlez-nous du site, du programme et de l'ambiance recherchée. Nous reviendrons vers vous avec une proposition.",
+    "button": "Commencer l'échange"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "intro": "Une sélection de projets d'architecture, de visualisation et d'intérieur.",
+    "searchPlaceholder": "Rechercher des projets",
+    "all": "Tous",
+    "empty": "Aucun projet ne correspond à votre recherche.",
+    "resultsOne": "projet",
+    "resultsMany": "projets"
+  },
+  "project": {
+    "backToPortfolio": "Retour au portfolio",
+    "overview": "Présentation",
+    "location": "Lieu",
+    "year": "Année",
+    "services": "Services",
+    "type": "Type de projet",
+    "category": "Catégorie",
+    "gallery": "Galerie",
+    "related": "Projets liés",
+    "nextProject": "Projet suivant"
+  },
+  "about": {
+    "title": "Studio",
+    "lead": "AURA360LAB est un studio d'architecture et de visualisation à la frontière du dessin et de l'image — il façonne des bâtiments et des intérieurs, puis les restitue avec la clarté d'une photographie.",
+    "storyTitle": "Notre histoire",
+    "story": "AURA360LAB est né d'une frustration simple : la grande architecture se perd trop souvent entre la planche à dessin et ceux pour qui elle est construite. Nous avons voulu combler cet écart en réunissant conception et visualisation sous un même toit. Aujourd'hui, nous accompagnons promoteurs, particuliers et confrères architectes du premier concept à la réalité entièrement rendue.",
+    "missionTitle": "Mission",
+    "mission": "Rendre l'architecture compréhensible et sensible — transformer des idées complexes en espaces et en images que chacun peut lire.",
+    "visionTitle": "Vision",
+    "vision": "Une pratique où conception et visualisation ne sont jamais des étapes séparées, mais un même savoir-faire continu.",
+    "philosophyTitle": "Philosophie de conception",
+    "philosophy": "Nous concevons avec retenue. La lumière, les proportions et la matière s'expriment ; tout le superflu est retiré. La même discipline traverse nos rendus — honnêtes, calmes et précis.",
+    "teamTitle": "Équipe",
+    "teamIntro": "Un studio compact d'architectes, de designers et d'artistes de la visualisation.",
+    "statsTitle": "En chiffres"
+  },
+  "team": {
+    "founder": "Fondateur & architecte principal",
+    "lead3d": "Artiste visualisation principal",
+    "interior": "Responsable design d'intérieur",
+    "architect": "Architecte de projet"
+  },
+  "contact": {
+    "title": "Contact",
+    "lead": "Parlez-nous de votre projet. Nous répondons généralement sous deux jours ouvrés.",
+    "formTitle": "Demande de projet",
+    "name": "Nom",
+    "email": "E-mail",
+    "subject": "Objet",
+    "message": "Message",
+    "send": "Envoyer le message",
+    "sending": "Envoi…",
+    "sent": "Merci — votre message est parti. Nous reviendrons vers vous.",
+    "error": "Une erreur est survenue. Merci de nous écrire directement.",
+    "namePlaceholder": "Votre nom",
+    "emailPlaceholder": "vous@exemple.com",
+    "subjectPlaceholder": "Nouveau projet / collaboration",
+    "messagePlaceholder": "Parlez-nous du site, du périmètre et du calendrier…",
+    "directTitle": "Direct",
+    "followTitle": "Suivre",
+    "phone": "Téléphone",
+    "whatsapp": "WhatsApp",
+    "email": "E-mail"
+  },
+  "footer": {
+    "tagline": "Architecture, visualisation 3D et design d'intérieur.",
+    "explore": "Explorer",
+    "connect": "Suivre",
+    "studio": "Studio",
+    "rights": "Tous droits réservés.",
+    "coordinates": "N 25.2854° / E 51.5310°",
+    "builtBy": "Conçu & développé par le studio."
+  },
+  "admin": {
+    "title": "Administration",
+    "subtitle": "Gérer les projets et les catégories.",
+    "login": "Connexion",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Mot de passe admin",
+    "loginButton": "Se connecter",
+    "loginError": "Mot de passe incorrect.",
+    "signOut": "Déconnexion",
+    "newProject": "Nouveau projet",
+    "projects": "Projets",
+    "categories": "Catégories",
+    "noProjects": "Aucun projet pour l'instant. Créez le premier.",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "confirmDelete": "Supprimer ce projet ? Action irréversible.",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "cancel": "Annuler",
+    "fields": {
+      "titleEn": "Titre (anglais)",
+      "titleFr": "Titre (français)",
+      "slug": "Slug",
+      "category": "Catégorie",
+      "location": "Lieu",
+      "year": "Année",
+      "typeEn": "Type de projet (anglais)",
+      "typeFr": "Type de projet (français)",
+      "servicesEn": "Services (anglais, séparés par des virgules)",
+      "servicesFr": "Services (français, séparés par des virgules)",
+      "descriptionEn": "Description (anglais)",
+      "descriptionFr": "Description (français)",
+      "coverImage": "Image de couverture",
+      "gallery": "Images de galerie",
+      "featured": "Afficher sur l'accueil"
+    },
+    "upload": "Téléverser une image",
+    "uploading": "Téléversement…",
+    "remove": "Retirer"
+  }
+}

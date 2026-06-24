@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bone: #f5f5f3;
+  --ink: #161615;
+  --graphite: #2a2a28;
+  --mist: #e4e3de;
+  --line: rgba(22, 22, 21, 0.12);
+  --line-strong: rgba(22, 22, 21, 0.22);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bone);
+    color: var(--ink);
+    font-feature-settings: "ss01", "cv01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--ink);
+    color: var(--bone);
+  }
+
+  /* Keyboard focus — visible, in the accent colour. */
+  :focus-visible {
+    outline: 2px solid #3e5c76;
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  /* Quiet, thin scrollbar to match the studio aesthetic. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 0;
+  }
+}
+
+@layer components {
+  /* Mono annotation label — the studio's signature drawing-style caption. */
+  .annotation {
+    @apply font-mono uppercase tracking-annotation text-[11px] leading-none text-ash;
+  }
+
+  /* Hairline divider used between sections. */
+  .hairline {
+    border-color: var(--line);
+  }
+
+  /* Corner-tick frame: thin registration marks like an architectural plate. */
+  .plate {
+    position: relative;
+  }
+  .plate::before,
+  .plate::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.55;
+  }
+  .plate::before {
+    top: 14px;
+    left: 14px;
+    border-top: 1px solid currentColor;
+    border-left: 1px solid currentColor;
+  }
+  .plate::after {
+    bottom: 14px;
+    right: 14px;
+    border-bottom: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-ink px-7 py-3.5 font-mono text-[12px] uppercase tracking-annotation text-bone transition-colors duration-300 ease-smooth hover:bg-graphite;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 border border-current px-7 py-3.5 font-mono text-[12px] uppercase tracking-annotation transition-colors duration-300 ease-smooth hover:bg-ink hover:text-bone;
+  }
+
+  .link-underline {
+    @apply relative inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-annotation;
+  }
+  .link-underline::after {
+    content: "";
+    @apply absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-300 ease-smooth;
+  }
+  .link-underline:hover::after {
+    @apply origin-left scale-x-100;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .display-tight {
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

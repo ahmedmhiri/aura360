@@ -1,0 +1,179 @@
+{
+  "meta": {
+    "siteName": "AURA360LAB",
+    "defaultTitle": "AURA360LAB — Architecture, 3D Visualization & Interior Design",
+    "defaultDescription": "AURA360LAB is an architecture and visualization studio crafting buildings, interiors, and the renders that bring them to life."
+  },
+  "nav": {
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "about": "Studio",
+    "contact": "Contact",
+    "startProject": "Start a project",
+    "skipToContent": "Skip to content"
+  },
+  "hero": {
+    "eyebrow": "Architecture / 3D Visualization / Interiors",
+    "title": "Designing space.\nRendering light.",
+    "subtitle": "An architecture and visualization studio shaping buildings, interiors, and the images that make them real.",
+    "viewPortfolio": "View portfolio",
+    "contact": "Contact us",
+    "panorama": "360° panorama"
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "Three disciplines, one continuous vision",
+    "intro": "From first sketch to final frame, we hold the idea together across every stage of a project.",
+    "items": {
+      "architecture": {
+        "name": "Architecture",
+        "description": "Concept, schematic and detailed design for residential, cultural and commercial buildings — grounded in site, light and use."
+      },
+      "visualization": {
+        "name": "3D Visualization",
+        "description": "Photoreal stills, animations and 360° panoramas that let clients walk a space long before it exists."
+      },
+      "interior": {
+        "name": "Interior Design",
+        "description": "Materials, furniture and atmosphere composed into interiors that feel considered down to the last detail."
+      }
+    },
+    "learnMore": "Discuss your project"
+  },
+  "featured": {
+    "eyebrow": "Selected works",
+    "title": "Recent projects",
+    "viewAll": "View all projects",
+    "index": "Index"
+  },
+  "aboutPreview": {
+    "eyebrow": "The studio",
+    "statement": "We believe a building should be felt before it is built. AURA360LAB unites architecture, interior design and visualization so an idea reads clearly — in plan, in light and in full immersion.",
+    "more": "More about us"
+  },
+  "stats": {
+    "projects": "Projects delivered",
+    "years": "Years of practice",
+    "countries": "Countries",
+    "awards": "Design awards"
+  },
+  "contactCta": {
+    "eyebrow": "Start a project",
+    "title": "Have a space in mind?",
+    "body": "Tell us about the site, the brief and the feeling you are after. We will come back with a way forward.",
+    "button": "Start the conversation"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "intro": "A selection of architecture, visualization and interior work.",
+    "searchPlaceholder": "Search projects",
+    "all": "All",
+    "empty": "No projects match your search yet.",
+    "resultsOne": "project",
+    "resultsMany": "projects"
+  },
+  "project": {
+    "backToPortfolio": "Back to portfolio",
+    "overview": "Overview",
+    "location": "Location",
+    "year": "Year",
+    "services": "Services",
+    "type": "Project type",
+    "category": "Category",
+    "gallery": "Gallery",
+    "related": "Related projects",
+    "nextProject": "Next project"
+  },
+  "about": {
+    "title": "Studio",
+    "lead": "AURA360LAB is an architecture and visualization studio working between design and image — shaping buildings and interiors, then rendering them with the clarity of a photograph.",
+    "storyTitle": "Our story",
+    "story": "AURA360LAB began with a simple frustration: great architecture too often gets lost in translation between the drawing board and the people it is built for. We set out to close that gap by keeping design and visualization under one roof. Today we work with developers, private clients and fellow architects to take projects from first concept to fully rendered reality.",
+    "missionTitle": "Mission",
+    "mission": "To make architecture understandable and felt — turning complex ideas into spaces and images everyone in the room can read.",
+    "visionTitle": "Vision",
+    "vision": "A practice where design and visualization are never separate steps, but a single continuous craft.",
+    "philosophyTitle": "Design philosophy",
+    "philosophy": "We design with restraint. Light, proportion and material do the talking; everything unnecessary is removed. The same discipline carries into our renders — honest, calm and precise.",
+    "teamTitle": "Team",
+    "teamIntro": "A compact studio of architects, designers and visualization artists.",
+    "statsTitle": "By the numbers"
+  },
+  "team": {
+    "founder": "Founder & Principal Architect",
+    "lead3d": "Lead Visualization Artist",
+    "interior": "Head of Interior Design",
+    "architect": "Project Architect"
+  },
+  "contact": {
+    "title": "Contact",
+    "lead": "Tell us about your project. We typically reply within two business days.",
+    "formTitle": "Project inquiry",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send message",
+    "sending": "Sending…",
+    "sent": "Thanks — your message is on its way. We will be in touch.",
+    "error": "Something went wrong. Please email us directly.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "you@example.com",
+    "subjectPlaceholder": "New project / collaboration",
+    "messagePlaceholder": "Tell us about the site, scope and timeline…",
+    "directTitle": "Direct",
+    "followTitle": "Follow",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "email": "Email"
+  },
+  "footer": {
+    "tagline": "Architecture, 3D visualization and interior design.",
+    "explore": "Explore",
+    "connect": "Connect",
+    "studio": "Studio",
+    "rights": "All rights reserved.",
+    "coordinates": "N 25.2854° / E 51.5310°",
+    "builtBy": "Designed & built by the studio."
+  },
+  "admin": {
+    "title": "Studio admin",
+    "subtitle": "Manage projects and categories.",
+    "login": "Sign in",
+    "password": "Password",
+    "passwordPlaceholder": "Admin password",
+    "loginButton": "Sign in",
+    "loginError": "Incorrect password.",
+    "signOut": "Sign out",
+    "newProject": "New project",
+    "projects": "Projects",
+    "categories": "Categories",
+    "noProjects": "No projects yet. Create your first one.",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmDelete": "Delete this project? This cannot be undone.",
+    "save": "Save project",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "fields": {
+      "titleEn": "Title (English)",
+      "titleFr": "Title (French)",
+      "slug": "Slug",
+      "category": "Category",
+      "location": "Location",
+      "year": "Year",
+      "typeEn": "Project type (English)",
+      "typeFr": "Project type (French)",
+      "servicesEn": "Services (English, comma separated)",
+      "servicesFr": "Services (French, comma separated)",
+      "descriptionEn": "Description (English)",
+      "descriptionFr": "Description (French)",
+      "coverImage": "Cover image",
+      "gallery": "Gallery images",
+      "featured": "Show on home page"
+    },
+    "upload": "Upload image",
+    "uploading": "Uploading…",
+    "remove": "Remove"
+  }
+}
