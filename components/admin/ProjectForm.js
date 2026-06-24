@@ -39,6 +39,7 @@ export default function ProjectForm({
     descriptionEn: initial?.descriptionEn || "",
     descriptionFr: initial?.descriptionFr || "",
     coverImage: initial?.coverImage || "",
+    coverImage360: initial?.coverImage360 ?? false,
     gallery: initial?.gallery || [],
     featured: initial?.featured ?? false,
     order: initial?.order ?? 0,
@@ -197,6 +198,17 @@ export default function ProjectForm({
           onChange={(v) => set("coverImage", v)}
           dict={dict}
         />
+        <label className="flex cursor-pointer items-center gap-3">
+          <input
+            type="checkbox"
+            checked={form.coverImage360}
+            onChange={(e) => set("coverImage360", e.target.checked)}
+            className="h-4 w-4 accent-ink"
+          />
+          <span className="text-sm text-ink">
+            {f.coverImage360 || "Cover image is a 360° panorama"}
+          </span>
+        </label>
         <ImageUploader
           label={f.gallery}
           value={form.gallery}

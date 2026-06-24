@@ -20,8 +20,11 @@ export default async function HomePage({ params }) {
   const featured = await getFeaturedProjects(6);
 
   const heroImages = featured.length
-    ? featured.map((p) => p.coverImage).filter(Boolean).slice(0, 5)
-    : FALLBACK_SLIDES;
+    ? featured
+        .map((p) => ({ src: p.coverImage, is360: p.coverImage360 }))
+        .filter((s) => s.src)
+        .slice(0, 5)
+    : FALLBACK_SLIDES.map((src) => ({ src, is360: false }));
 
   return (
     <>

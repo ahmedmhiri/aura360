@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Pano360 from "@/components/Pano360";
 
 const DURATION = 6000;
 
@@ -37,22 +38,26 @@ export default function Hero({ locale, dict, images }) {
             transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
           >
             {slides[index] ? (
-              <motion.div
-                className="absolute inset-0"
-                initial={reduce ? false : { scale: 1.08 }}
-                animate={reduce ? false : { scale: 1 }}
-                transition={{ duration: DURATION / 1000 + 1.4, ease: "linear" }}
-              >
-                <Image
-                  src={slides[index]}
-                  alt=""
-                  fill
-                  priority={index === 0}
-                  sizes="100vw"
-                  unoptimized={slides[index].startsWith("data:")}
-                  className="object-cover"
-                />
-              </motion.div>
+              slides[index].is360 ? (
+                <Pano360 src={slides[index].src} className="absolute inset-0 h-full w-full" />
+              ) : (
+                <motion.div
+                  className="absolute inset-0"
+                  initial={reduce ? false : { scale: 1.08 }}
+                  animate={reduce ? false : { scale: 1 }}
+                  transition={{ duration: DURATION / 1000 + 1.4, ease: "linear" }}
+                >
+                  <Image
+                    src={slides[index].src}
+                    alt=""
+                    fill
+                    priority={index === 0}
+                    sizes="100vw"
+                    unoptimized={slides[index].src.startsWith("data:")}
+                    className="object-cover"
+                  />
+                </motion.div>
+              )
             ) : (
               <div className="absolute inset-0 bg-graphite" />
             )}

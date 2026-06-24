@@ -169,6 +169,7 @@
       "descriptionEn": "Description (anglais)",
       "descriptionFr": "Description (français)",
       "coverImage": "Image de couverture",
+      "coverImage360": "L'image de couverture est un panorama 360°",
       "gallery": "Images de galerie",
       "featured": "Afficher sur l'accueil"
     },

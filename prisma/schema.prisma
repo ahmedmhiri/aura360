@@ -34,6 +34,7 @@ model Project {
   location      String   @default("")
   year          Int?
   coverImage    String   @default("")
+  coverImage360 Boolean  @default(false)
   gallery       String[] @default([])
   servicesEn    String[] @default([])
   servicesFr    String[] @default([])
