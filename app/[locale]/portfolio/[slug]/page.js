@@ -121,6 +121,7 @@ export default async function ProjectDetailPage({ params }) {
                 fill
                 priority
                 sizes="(min-width: 1480px) 1480px, 100vw"
+                unoptimized={project.coverImage.startsWith("data:")}
                 className="object-cover"
               />
             </div>

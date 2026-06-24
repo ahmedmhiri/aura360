@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { getDictionary } from "@/i18n/dictionaries";
+import { isAuthenticated } from "@/lib/auth";
+import prisma, { isDbEnabled } from "@/lib/prisma";
 
 export const metadata = {
   title: "Studio admin",
@@ -10,6 +12,9 @@ export const metadata = {
 export default async function AdminLayout({ children, params }) {
   const { locale } = params;
   const dict = await getDictionary(locale);
+  const authed = isAuthenticated();
+  const unreadCount =
+    authed && isDbEnabled ? await prisma.message.count({ where: { read: false } }) : 0;
 
   return (
     <div className="min-h-screen bg-bone">
@@ -24,6 +29,29 @@ export default async function AdminLayout({ children, params }) {
               {dict.admin.title}
             </span>
           </Link>
+
+          {authed ? (
+            <nav className="hidden items-center gap-6 sm:flex">
+              <Link
+                href={`/${locale}/admin`}
+                className="font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink"
+              >
+                {dict.admin.projects}
+              </Link>
+              <Link
+                href={`/${locale}/admin/messages`}
+                className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink"
+              >
+                {dict.admin.messages.title}
+                {unreadCount > 0 ? (
+                  <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-blueprint px-1.5 font-mono text-[10px] text-bone">
+                    {unreadCount}
+                  </span>
+                ) : null}
+              </Link>
+            </nav>
+          ) : null}
+
           <Link
             href={`/${locale}`}
             className="inline-flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink"

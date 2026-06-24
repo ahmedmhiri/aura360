@@ -49,6 +49,7 @@ export default function Hero({ locale, dict, images }) {
                   fill
                   priority={index === 0}
                   sizes="100vw"
+                  unoptimized={slides[index].startsWith("data:")}
                   className="object-cover"
                 />
               </motion.div>

@@ -37,6 +37,7 @@ export default function ProjectCard({
             fill
             priority={priority}
             sizes={sizes}
+            unoptimized={project.coverImage.startsWith("data:")}
             className="object-cover transition-transform duration-[900ms] ease-smooth group-hover:scale-[1.05]"
           />
         ) : null}

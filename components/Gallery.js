@@ -58,6 +58,7 @@ export default function Gallery({ images = [], title = "" }) {
               alt={`${title} — ${i + 1}`}
               fill
               sizes="(min-width: 640px) 50vw, 100vw"
+              unoptimized={src.startsWith("data:")}
               className="object-cover transition-transform duration-700 ease-smooth group-hover:scale-105"
             />
           </button>
@@ -127,6 +128,7 @@ export default function Gallery({ images = [], title = "" }) {
                 alt={`${title} — ${current + 1}`}
                 fill
                 sizes="92vw"
+                unoptimized={images[current].startsWith("data:")}
                 className="object-contain"
               />
             </motion.div>

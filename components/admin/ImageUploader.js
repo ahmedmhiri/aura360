@@ -1,12 +1,54 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
 import { Upload, X, Plus, Link2 } from "lucide-react";
 
+const MAX_DIMENSION = 1600;
+const JPEG_QUALITY = 0.8;
+
+function readFileAsDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error("Could not read file"));
+    reader.readAsDataURL(file);
+  });
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("Could not load image"));
+    img.src = src;
+  });
+}
+
+// Downscales + re-encodes the file as a compressed JPEG data URL entirely in
+// the browser, so the result can be stored alongside the project data with
+// no server filesystem or storage service involved.
+async function compressImage(file) {
+  const dataUrl = await readFileAsDataURL(file);
+  const img = await loadImage(dataUrl);
+  const scale = Math.min(1, MAX_DIMENSION / Math.max(img.width, img.height));
+  const width = Math.max(1, Math.round(img.width * scale));
+  const height = Math.max(1, Math.round(img.height * scale));
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, width, height);
+  ctx.drawImage(img, 0, 0, width, height);
+
+  return canvas.toDataURL("image/jpeg", JPEG_QUALITY);
+}
+
 /**
- * Image field for the admin form. Supports direct file upload (to /api/upload)
- * and pasting an existing image URL. Works as a single field or a multi-image
+ * Image field for the admin form. Compresses chosen files to a data URL
+ * entirely in the browser (no server upload needed) and also accepts
+ * pasting an existing image URL. Works as a single field or a multi-image
  * gallery depending on the `multiple` prop.
  *
  * value:    string (single) | string[] (multiple)
@@ -34,12 +76,7 @@ export default function ImageUploader({
     try {
       const uploaded = [];
       for (const file of files) {
-        const body = new FormData();
-        body.append("file", file);
-        const res = await fetch("/api/upload", { method: "POST", body });
-        const data = await res.json();
-        if (!res.ok || !data.ok) throw new Error(data.error || "Upload failed");
-        uploaded.push(data.url);
+        uploaded.push(await compressImage(file));
       }
       commit(multiple ? [...images, ...uploaded] : uploaded.slice(-1));
     } catch (e) {
