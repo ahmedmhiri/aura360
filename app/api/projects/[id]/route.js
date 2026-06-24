@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import prisma, { isDbEnabled } from "@/lib/prisma";
 import { isAuthenticated } from "@/lib/auth";
 import { toProjectData, validateProjectData } from "@/lib/project-input";
@@ -41,6 +42,7 @@ export async function PUT(request, { params }) {
 
   try {
     const project = await prisma.project.update({ where: { id: params.id }, data });
+    revalidatePath("/", "layout");
     return NextResponse.json({ ok: true, project });
   } catch (e) {
     const msg = e.code === "P2002" ? "A project with that slug already exists." : e.message;
@@ -53,6 +55,7 @@ export async function DELETE(request, { params }) {
   if (!isDbEnabled) return dbDisabled();
   try {
     await prisma.project.delete({ where: { id: params.id } });
+    revalidatePath("/", "layout");
     return NextResponse.json({ ok: true });
   } catch (e) {
     return NextResponse.json({ ok: false, error: e.message }, { status: 400 });

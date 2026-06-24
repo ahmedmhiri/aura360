@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import prisma, { isDbEnabled } from "@/lib/prisma";
 import { isAuthenticated } from "@/lib/auth";
 import { toProjectData, validateProjectData } from "@/lib/project-input";
@@ -47,6 +48,7 @@ export async function POST(request) {
 
   try {
     const project = await prisma.project.create({ data });
+    revalidatePath("/", "layout");
     return NextResponse.json({ ok: true, project }, { status: 201 });
   } catch (e) {
     const msg = e.code === "P2002" ? "A project with that slug already exists." : e.message;
