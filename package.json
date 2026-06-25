@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
+    "@vercel/speed-insights": "^2.0.0",
     "framer-motion": "^11.3.8",
     "lucide-react": "^0.417.0",
     "next": "^14.2.5",

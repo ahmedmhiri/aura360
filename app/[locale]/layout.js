@@ -1,5 +1,6 @@
 import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/app/globals.css";
 import { locales, isValidLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -75,6 +76,7 @@ export default async function LocaleLayout({ children, params }) {
         <ChromeGate>
           <Footer locale={locale} dict={dict} />
         </ChromeGate>
+        <SpeedInsights />
       </body>
     </html>
   );
