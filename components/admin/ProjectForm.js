@@ -40,6 +40,7 @@ export default function ProjectForm({
     descriptionFr: initial?.descriptionFr || "",
     coverImage: initial?.coverImage || "",
     coverImage360: initial?.coverImage360 ?? false,
+    panoramas: initial?.panoramas || [],
     gallery: initial?.gallery || [],
     featured: initial?.featured ?? false,
     order: initial?.order ?? 0,
@@ -197,6 +198,8 @@ export default function ProjectForm({
           value={form.coverImage}
           onChange={(v) => set("coverImage", v)}
           dict={dict}
+          maxDimension={form.coverImage360 ? 4096 : 1600}
+          quality={form.coverImage360 ? 0.92 : 0.8}
         />
         <label className="flex cursor-pointer items-center gap-3">
           <input
@@ -209,6 +212,15 @@ export default function ProjectForm({
             {f.coverImage360 || "Cover image is a 360° panorama"}
           </span>
         </label>
+        <ImageUploader
+          label={f.panoramas || "360° Panoramas (shown before the gallery)"}
+          value={form.panoramas}
+          onChange={(v) => set("panoramas", v)}
+          multiple
+          dict={dict}
+          maxDimension={4096}
+          quality={0.92}
+        />
         <ImageUploader
           label={f.gallery}
           value={form.gallery}

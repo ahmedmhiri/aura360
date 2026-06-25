@@ -27,10 +27,10 @@ function loadImage(src) {
 // Downscales + re-encodes the file as a compressed JPEG data URL entirely in
 // the browser, so the result can be stored alongside the project data with
 // no server filesystem or storage service involved.
-async function compressImage(file) {
+async function compressImage(file, maxDimension = MAX_DIMENSION, quality = JPEG_QUALITY) {
   const dataUrl = await readFileAsDataURL(file);
   const img = await loadImage(dataUrl);
-  const scale = Math.min(1, MAX_DIMENSION / Math.max(img.width, img.height));
+  const scale = Math.min(1, maxDimension / Math.max(img.width, img.height));
   const width = Math.max(1, Math.round(img.width * scale));
   const height = Math.max(1, Math.round(img.height * scale));
 
@@ -42,7 +42,7 @@ async function compressImage(file) {
   ctx.fillRect(0, 0, width, height);
   ctx.drawImage(img, 0, 0, width, height);
 
-  return canvas.toDataURL("image/jpeg", JPEG_QUALITY);
+  return canvas.toDataURL("image/jpeg", quality);
 }
 
 /**
@@ -60,6 +60,8 @@ export default function ImageUploader({
   multiple = false,
   label,
   dict,
+  maxDimension = MAX_DIMENSION,
+  quality = JPEG_QUALITY,
 }) {
   const inputRef = useRef(null);
   const [busy, setBusy] = useState(false);
@@ -76,7 +78,7 @@ export default function ImageUploader({
     try {
       const uploaded = [];
       for (const file of files) {
-        uploaded.push(await compressImage(file));
+        uploaded.push(await compressImage(file, maxDimension, quality));
       }
       commit(multiple ? [...images, ...uploaded] : uploaded.slice(-1));
     } catch (e) {

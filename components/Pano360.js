@@ -36,6 +36,8 @@ export default function Pano360({ src, className = "", onInteractingChange }) {
     let disposed = false;
     loader.load(src, (texture) => {
       texture.colorSpace = THREE.SRGBColorSpace;
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      texture.minFilter = THREE.LinearMipmapLinearFilter;
       if (disposed) {
         texture.dispose();
         return;

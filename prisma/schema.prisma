@@ -36,6 +36,7 @@ model Project {
   coverImage    String   @default("")
   coverImage360 Boolean  @default(false)
   gallery       String[] @default([])
+  panoramas     String[] @default([])
   servicesEn    String[] @default([])
   servicesFr    String[] @default([])
   featured      Boolean  @default(false)

@@ -12,7 +12,9 @@ import {
 import { pick } from "@/i18n/config";
 import { Reveal } from "@/components/motion";
 import Gallery from "@/components/Gallery";
+import PanoramaGallery from "@/components/PanoramaGallery";
 import ProjectCard from "@/components/ProjectCard";
+import Pano360 from "@/components/Pano360";
 
 export async function generateStaticParams() {
   const slugs = await getAllProjectSlugs();
@@ -115,15 +117,19 @@ export default async function ProjectDetailPage({ params }) {
         <div className="mx-auto mt-10 max-w-site px-5 sm:px-8">
           <Reveal y={24}>
             <div className="plate relative aspect-[16/10] w-full overflow-hidden bg-mist text-bone/70">
-              <Image
-                src={project.coverImage}
-                alt={title}
-                fill
-                priority
-                sizes="(min-width: 1480px) 1480px, 100vw"
-                unoptimized={project.coverImage.startsWith("data:")}
-                className="object-cover"
-              />
+              {project.coverImage360 ? (
+                <Pano360 src={project.coverImage} className="absolute inset-0 h-full w-full" />
+              ) : (
+                <Image
+                  src={project.coverImage}
+                  alt={title}
+                  fill
+                  priority
+                  sizes="(min-width: 1480px) 1480px, 100vw"
+                  unoptimized={project.coverImage.startsWith("data:")}
+                  className="object-cover"
+                />
+              )}
             </div>
           </Reveal>
         </div>
@@ -169,6 +175,18 @@ export default async function ProjectDetailPage({ params }) {
           </aside>
         </div>
       </div>
+
+      {/* 360° Panoramas */}
+      {project.panoramas?.length ? (
+        <div className="mx-auto mt-20 max-w-site px-5 sm:px-8 md:mt-28">
+          <Reveal>
+            <span className="annotation text-blueprint">{dict.project.panoramas}</span>
+          </Reveal>
+          <div className="mt-8">
+            <PanoramaGallery images={project.panoramas} title={title} />
+          </div>
+        </div>
+      ) : null}
 
       {/* Gallery */}
       {galleryImages.length ? (

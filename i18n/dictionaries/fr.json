@@ -81,6 +81,7 @@
     "type": "Type de projet",
     "category": "Catégorie",
     "gallery": "Galerie",
+    "panoramas": "Panoramas 360°",
     "related": "Projets liés",
     "nextProject": "Projet suivant"
   },
@@ -171,6 +172,7 @@
       "coverImage": "Image de couverture",
       "coverImage360": "L'image de couverture est un panorama 360°",
       "gallery": "Images de galerie",
+      "panoramas": "Panoramas 360° (affichés avant la galerie)",
       "featured": "Afficher sur l'accueil"
     },
     "upload": "Téléverser une image",
