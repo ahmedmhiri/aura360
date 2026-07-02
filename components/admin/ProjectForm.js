@@ -43,6 +43,7 @@ export default function ProjectForm({
     panoramas: initial?.panoramas || [],
     gallery: initial?.gallery || [],
     featured: initial?.featured ?? false,
+    published: initial?.published ?? true,
     order: initial?.order ?? 0,
   });
   const [slugTouched, setSlugTouched] = useState(Boolean(initial?.slug));
@@ -229,7 +230,7 @@ export default function ProjectForm({
           dict={dict}
         />
 
-        {/* Featured toggle */}
+        {/* Featured + published toggles */}
         <label className="flex cursor-pointer items-center gap-3">
           <input
             type="checkbox"
@@ -238,6 +239,15 @@ export default function ProjectForm({
             className="h-4 w-4 accent-ink"
           />
           <span className="text-sm text-ink">{f.featured}</span>
+        </label>
+        <label className="flex cursor-pointer items-center gap-3">
+          <input
+            type="checkbox"
+            checked={form.published}
+            onChange={(e) => set("published", e.target.checked)}
+            className="h-4 w-4 accent-ink"
+          />
+          <span className="text-sm text-ink">{f.published}</span>
         </label>
 
         {error ? <p className="text-sm text-blueprint">{error}</p> : null}

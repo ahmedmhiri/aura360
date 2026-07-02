@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import { pick } from "@/i18n/config";
 
 export default function AdminProjectList({ locale, dict, projects: initial, canEdit }) {
@@ -11,6 +11,26 @@ export default function AdminProjectList({ locale, dict, projects: initial, canE
   const [projects, setProjects] = useState(initial);
   const [error, setError] = useState("");
   const [pendingId, setPendingId] = useState(null);
+
+  const togglePublished = async (id, published) => {
+    setPendingId(id);
+    setError("");
+    try {
+      const res = await fetch(`/api/projects/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ published }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || "Update failed");
+      setProjects((p) => p.map((x) => (x.id === id ? { ...x, published } : x)));
+      router.refresh();
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setPendingId(null);
+    }
+  };
 
   const remove = async (id) => {
     if (!window.confirm(dict.confirmDelete)) return;
@@ -59,6 +79,11 @@ export default function AdminProjectList({ locale, dict, projects: initial, canE
                     ★
                   </span>
                 ) : null}
+                {!p.published ? (
+                  <span className="annotation rounded-full border border-line px-2 py-0.5 text-ash">
+                    {dict.draft}
+                  </span>
+                ) : null}
               </div>
               <p className="annotation mt-1 text-ash">
                 {pick(p.category?.name, locale)}
@@ -68,6 +93,19 @@ export default function AdminProjectList({ locale, dict, projects: initial, canE
             </div>
 
             <div className="flex shrink-0 items-center gap-1">
+              <button
+                type="button"
+                onClick={() => togglePublished(p.id, !p.published)}
+                disabled={!canEdit || pendingId === p.id}
+                className="flex h-9 w-9 items-center justify-center rounded-full text-ash transition-colors hover:bg-mist hover:text-ink disabled:opacity-40"
+                title={p.published ? dict.unpublish : dict.publish}
+              >
+                {p.published ? (
+                  <Eye size={16} strokeWidth={1.5} />
+                ) : (
+                  <EyeOff size={16} strokeWidth={1.5} />
+                )}
+              </button>
               <Link
                 href={`/${locale}/admin/projects/${p.id}/edit`}
                 aria-disabled={!canEdit}

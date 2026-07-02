@@ -40,6 +40,7 @@ model Project {
   servicesEn    String[] @default([])
   servicesFr    String[] @default([])
   featured      Boolean  @default(false)
+  published     Boolean  @default(true)
   order         Int      @default(0)
 
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
@@ -50,6 +51,7 @@ model Project {
 
   @@index([categoryId])
   @@index([featured])
+  @@index([published])
 }
 
 model Message {

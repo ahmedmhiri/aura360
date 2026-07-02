@@ -30,6 +30,11 @@ function getLocale(request) {
 // Verify the admin session cookie using Web Crypto (Edge-compatible HMAC).
 async function verifyAdminSession(value) {
   if (!value) return false;
+  // Fail closed in production: the dev secret is public in the repo, so a
+  // cookie signed with it must never be accepted outside local development.
+  if (process.env.NODE_ENV === "production" && !process.env.ADMIN_SESSION_SECRET) {
+    return false;
+  }
   try {
     const secret = process.env.ADMIN_SESSION_SECRET || DEV_SECRET;
     const enc = new TextEncoder();

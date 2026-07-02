@@ -4,6 +4,7 @@ import prisma, { isDbEnabled } from "@/lib/prisma";
 import { isAuthenticated } from "@/lib/auth";
 import { toProjectData, validateProjectData } from "@/lib/project-input";
 import { dbDisabled, unauthorized, badRequest, readJson } from "@/lib/api";
+import { deleteUploadedImages, projectImageUrls } from "@/lib/uploads";
 
 export const runtime = "nodejs";
 
@@ -42,11 +43,32 @@ export async function PUT(request, { params }) {
   }
 }
 
+// Partial update used by the admin list's publish/unpublish toggle.
+export async function PATCH(request, { params }) {
+  if (!isAuthenticated()) return unauthorized();
+  if (!isDbEnabled) return dbDisabled();
+
+  const body = await readJson(request);
+  if (!body || body.published === undefined) return badRequest("Invalid request");
+
+  try {
+    const project = await prisma.project.update({
+      where: { id: params.id },
+      data: { published: Boolean(body.published) },
+    });
+    revalidatePath("/", "layout");
+    return NextResponse.json({ ok: true, project });
+  } catch (e) {
+    return badRequest(e.message);
+  }
+}
+
 export async function DELETE(request, { params }) {
   if (!isAuthenticated()) return unauthorized();
   if (!isDbEnabled) return dbDisabled();
   try {
-    await prisma.project.delete({ where: { id: params.id } });
+    const project = await prisma.project.delete({ where: { id: params.id } });
+    await deleteUploadedImages(projectImageUrls(project));
     revalidatePath("/", "layout");
     return NextResponse.json({ ok: true });
   } catch (e) {

@@ -6,7 +6,8 @@ import { ArrowRight, Check } from "lucide-react";
 
 export default function ContactForm({ dict }) {
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  // `company` is a honeypot: hidden from humans, so anything filling it is a bot.
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "", company: "" });
 
   const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
@@ -21,7 +22,7 @@ export default function ContactForm({ dict }) {
       });
       if (!res.ok) throw new Error("Request failed");
       setStatus("sent");
-      setForm({ name: "", email: "", subject: "", message: "" });
+      setForm({ name: "", email: "", subject: "", message: "", company: "" });
     } catch (err) {
       setStatus("error");
     }
@@ -48,6 +49,20 @@ export default function ContactForm({ dict }) {
 
   return (
     <form onSubmit={submit} className="space-y-7">
+      {/* Honeypot — visually hidden and skipped by keyboard/screen readers. */}
+      <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+        <label htmlFor="company">Company</label>
+        <input
+          id="company"
+          name="company"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.company}
+          onChange={update("company")}
+        />
+      </div>
+
       <div className="grid gap-7 sm:grid-cols-2">
         <div>
           <label className={labelClass} htmlFor="name">

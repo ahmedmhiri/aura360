@@ -1,4 +1,4 @@
-import { Mail, Phone, MessageCircle, Instagram, Linkedin, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, MessageCircle, Instagram, Linkedin, Globe, ArrowUpRight } from "lucide-react";
 import { getDictionary } from "@/i18n/dictionaries";
 import { site } from "@/lib/site";
 import { Reveal } from "@/components/motion";
@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
     description: dict.contact.lead,
     alternates: {
       canonical: `/${locale}/contact`,
-      languages: { en: "/en/contact", fr: "/fr/contact" },
+      languages: { en: "/en/contact", fr: "/fr/contact", "x-default": "/en/contact" },
     },
   };
 }
@@ -68,6 +68,7 @@ export default async function ContactPage({ params }) {
   const social = [
     { Icon: Instagram, label: "Instagram", value: site.instagram, href: site.instagramHref },
     { Icon: Linkedin, label: "LinkedIn", value: site.linkedin, href: site.linkedinHref },
+    { Icon: Globe, label: "Behance", value: site.behance, href: site.behanceHref },
   ];
 
   return (

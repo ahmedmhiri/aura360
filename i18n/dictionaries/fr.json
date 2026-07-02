@@ -156,6 +156,24 @@
     "save": "Enregistrer",
     "saving": "Enregistrement…",
     "cancel": "Annuler",
+    "published": "Publié",
+    "draft": "Brouillon",
+    "publish": "Publier",
+    "unpublish": "Dépublier",
+    "categoryManager": {
+      "title": "Catégories",
+      "subtitle": "Organisez le portfolio. Supprimer une catégorie supprime aussi ses projets.",
+      "empty": "Aucune catégorie pour l'instant. Créez la première.",
+      "newCategory": "Nouvelle catégorie",
+      "nameEn": "Nom (anglais)",
+      "nameFr": "Nom (français)",
+      "slug": "Slug",
+      "order": "Ordre",
+      "add": "Ajouter la catégorie",
+      "save": "Enregistrer",
+      "confirmDelete": "Supprimer cette catégorie ? Tous ses projets seront également supprimés. Action irréversible.",
+      "projectsCount": "projets"
+    },
     "fields": {
       "titleEn": "Titre (anglais)",
       "titleFr": "Titre (français)",
@@ -173,7 +191,8 @@
       "coverImage360": "L'image de couverture est un panorama 360°",
       "gallery": "Images de galerie",
       "panoramas": "Panoramas 360° (affichés avant la galerie)",
-      "featured": "Afficher sur l'accueil"
+      "featured": "Afficher sur l'accueil",
+      "published": "Publié (visible sur le site)"
     },
     "upload": "Téléverser une image",
     "uploading": "Téléversement…",

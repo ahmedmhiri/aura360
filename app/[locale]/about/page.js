@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
     description: dict.about.lead,
     alternates: {
       canonical: `/${locale}/about`,
-      languages: { en: "/en/about", fr: "/fr/about" },
+      languages: { en: "/en/about", fr: "/fr/about", "x-default": "/en/about" },
     },
   };
 }

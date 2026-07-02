@@ -4,7 +4,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getProjectBySlug, getProjects, getAllProjectSlugs } from "@/lib/projects";
 import { pick } from "@/i18n/config";
+import { site } from "@/lib/site";
 import { Reveal } from "@/components/motion";
+import JsonLd from "@/components/JsonLd";
 import Gallery from "@/components/Gallery";
 import PanoramaGallery from "@/components/PanoramaGallery";
 import ProjectCover from "@/components/ProjectCover";
@@ -31,6 +33,7 @@ export async function generateMetadata({ params }) {
       languages: {
         en: `/en/portfolio/${slug}`,
         fr: `/fr/portfolio/${slug}`,
+        "x-default": `/en/portfolio/${slug}`,
       },
     },
     openGraph: {
@@ -77,8 +80,23 @@ export default async function ProjectDetailPage({ params }) {
     ? [project.coverImage]
     : [];
 
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const creativeWork = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: title,
+    description,
+    url: `${base}/${locale}/portfolio/${slug}`,
+    inLanguage: locale,
+    author: { "@type": "Organization", name: site.name },
+    ...(project.coverImage ? { image: project.coverImage } : {}),
+    ...(project.year ? { dateCreated: String(project.year) } : {}),
+    ...(categoryName ? { genre: categoryName } : {}),
+  };
+
   return (
     <article className="pt-28 sm:pt-32">
+      <JsonLd data={creativeWork} />
       <div className="mx-auto max-w-site px-5 sm:px-8">
         <Reveal>
           <Link href={`/${locale}/portfolio`} className="link-underline text-graphite">

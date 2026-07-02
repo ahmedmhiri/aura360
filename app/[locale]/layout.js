@@ -4,9 +4,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/app/globals.css";
 import { locales, isValidLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { site } from "@/lib/site";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChromeGate from "@/components/ChromeGate";
+import JsonLd from "@/components/JsonLd";
 
 const display = Archivo({
   subsets: ["latin"],
@@ -44,7 +46,7 @@ export async function generateMetadata({ params }) {
     description: dict.meta.defaultDescription,
     alternates: {
       canonical: `/${locale}`,
-      languages: { en: "/en", fr: "/fr" },
+      languages: { en: "/en", fr: "/fr", "x-default": "/en" },
     },
     openGraph: {
       type: "website",
@@ -61,10 +63,21 @@ export default async function LocaleLayout({ children, params }) {
   const { locale } = params;
   if (!isValidLocale(locale)) notFound();
   const dict = await getDictionary(locale);
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+  const organization = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: site.name,
+    url: base,
+    description: dict.meta.defaultDescription,
+    sameAs: [site.instagramHref, site.linkedinHref, site.behanceHref].filter(Boolean),
+  };
 
   return (
     <html lang={locale} className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <body className="font-sans antialiased">
+        <JsonLd data={organization} />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:bg-ink focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:text-bone"

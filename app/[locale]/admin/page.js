@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminDashboard({ params }) {
   const { locale } = params;
   const dict = await getDictionary(locale);
-  const projects = await getProjects({});
+  const projects = await getProjects({ includeUnpublished: true });
 
   return (
     <div>

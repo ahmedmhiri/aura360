@@ -156,6 +156,24 @@
     "save": "Save project",
     "saving": "Saving…",
     "cancel": "Cancel",
+    "published": "Published",
+    "draft": "Draft",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "categoryManager": {
+      "title": "Categories",
+      "subtitle": "Organize the portfolio. Deleting a category also deletes its projects.",
+      "empty": "No categories yet. Create your first one.",
+      "newCategory": "New category",
+      "nameEn": "Name (English)",
+      "nameFr": "Name (French)",
+      "slug": "Slug",
+      "order": "Order",
+      "add": "Add category",
+      "save": "Save",
+      "confirmDelete": "Delete this category? All of its projects will be deleted too. This cannot be undone.",
+      "projectsCount": "projects"
+    },
     "fields": {
       "titleEn": "Title (English)",
       "titleFr": "Title (French)",
@@ -173,7 +191,8 @@
       "coverImage360": "Cover image is a 360° panorama",
       "gallery": "Gallery images",
       "panoramas": "360° Panoramas (shown before the gallery)",
-      "featured": "Show on home page"
+      "featured": "Show on home page",
+      "published": "Published (visible on the site)"
     },
     "upload": "Upload image",
     "uploading": "Uploading…",

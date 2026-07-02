@@ -39,6 +39,12 @@ export default async function AdminLayout({ children, params }) {
                 {dict.admin.projects}
               </Link>
               <Link
+                href={`/${locale}/admin/categories`}
+                className="font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink"
+              >
+                {dict.admin.categories}
+              </Link>
+              <Link
                 href={`/${locale}/admin/messages`}
                 className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink"
               >

@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
     description: dict.portfolio.intro,
     alternates: {
       canonical: `/${locale}/portfolio`,
-      languages: { en: "/en/portfolio", fr: "/fr/portfolio" },
+      languages: { en: "/en/portfolio", fr: "/fr/portfolio", "x-default": "/en/portfolio" },
     },
   };
 }
