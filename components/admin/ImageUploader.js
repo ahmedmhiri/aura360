@@ -25,8 +25,8 @@ function loadImage(src) {
 }
 
 // Resizes the image client-side (preserving aspect ratio up to maxDimension)
-// then uploads it to /api/upload, returning the stored URL.
-// Falls back to a base64 data URL only if the upload API is unreachable.
+// then uploads it to /api/upload, returning { url, sourceWidth } — the source
+// width lets callers warn about low-resolution originals.
 async function uploadImage(file, maxDimension = MAX_DIMENSION, quality = JPEG_QUALITY) {
   const dataUrl = await readFileAsDataURL(file);
   const img = await loadImage(dataUrl);
@@ -50,7 +50,7 @@ async function uploadImage(file, maxDimension = MAX_DIMENSION, quality = JPEG_QU
   const res = await fetch("/api/upload", { method: "POST", body: form });
   const data = await res.json();
   if (!res.ok || !data.ok) throw new Error(data.error || "Upload failed");
-  return data.url;
+  return { url: data.url, sourceWidth: img.width };
 }
 
 export default function ImageUploader({
@@ -61,10 +61,13 @@ export default function ImageUploader({
   dict,
   maxDimension = MAX_DIMENSION,
   quality = JPEG_QUALITY,
+  // When > 0, warn (without blocking) if a source image is narrower than this.
+  warnBelowWidth = 0,
 }) {
   const inputRef = useRef(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [warning, setWarning] = useState("");
   const [url, setUrl] = useState("");
 
   const images = multiple ? (Array.isArray(value) ? value : []) : value ? [value] : [];
@@ -75,11 +78,23 @@ export default function ImageUploader({
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
     setError("");
+    setWarning("");
     setBusy(true);
     try {
       const uploaded = [];
+      let narrowest = Infinity;
       for (const file of files) {
-        uploaded.push(await uploadImage(file, maxDimension, quality));
+        const { url, sourceWidth } = await uploadImage(file, maxDimension, quality);
+        uploaded.push(url);
+        narrowest = Math.min(narrowest, sourceWidth);
+      }
+      if (warnBelowWidth && narrowest < warnBelowWidth) {
+        setWarning(
+          (dict?.lowResWarning || "This image is only {width}px wide.").replace(
+            "{width}",
+            String(narrowest)
+          )
+        );
       }
       commit(multiple ? [...images, ...uploaded] : uploaded.slice(-1));
     } catch (e) {
@@ -179,6 +194,7 @@ export default function ImageUploader({
       </div>
 
       {error ? <p className="mt-2 text-sm text-blueprint">{error}</p> : null}
+      {warning ? <p className="mt-2 text-sm text-blueprint">⚠ {warning}</p> : null}
     </div>
   );
 }

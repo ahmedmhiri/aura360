@@ -197,6 +197,7 @@
     "upload": "Téléverser une image",
     "uploading": "Téléversement…",
     "remove": "Retirer",
+    "lowResWarning": "Cette image ne fait que {width}px de large. Un panorama 360° doit faire au moins 4000px pour rester net — téléversez le rendu original si possible.",
     "messages": {
       "title": "Messages",
       "subtitle": "Demandes de projet envoyées via le formulaire de contact.",

@@ -194,14 +194,10 @@ export default function ProjectForm({
         </div>
 
         {/* Images */}
-        <ImageUploader
-          label={f.coverImage}
-          value={form.coverImage}
-          onChange={(v) => set("coverImage", v)}
-          dict={dict}
-          maxDimension={form.coverImage360 ? 4096 : 1600}
-          quality={form.coverImage360 ? 0.92 : 0.8}
-        />
+        {/* The 360 checkbox sits above the uploader so it is set before the
+            file is chosen. Covers always upload at panorama resolution anyway:
+            an image downscaled at upload time can never be sharpened again,
+            and non-360 covers are resized on delivery by next/image. */}
         <label className="flex cursor-pointer items-center gap-3">
           <input
             type="checkbox"
@@ -214,6 +210,15 @@ export default function ProjectForm({
           </span>
         </label>
         <ImageUploader
+          label={f.coverImage}
+          value={form.coverImage}
+          onChange={(v) => set("coverImage", v)}
+          dict={dict}
+          maxDimension={4096}
+          quality={0.92}
+          warnBelowWidth={form.coverImage360 ? 4000 : 0}
+        />
+        <ImageUploader
           label={f.panoramas || "360° Panoramas (shown before the gallery)"}
           value={form.panoramas}
           onChange={(v) => set("panoramas", v)}
@@ -221,6 +226,7 @@ export default function ProjectForm({
           dict={dict}
           maxDimension={4096}
           quality={0.92}
+          warnBelowWidth={4000}
         />
         <ImageUploader
           label={f.gallery}

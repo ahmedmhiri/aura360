@@ -197,6 +197,7 @@
     "upload": "Upload image",
     "uploading": "Uploading…",
     "remove": "Remove",
+    "lowResWarning": "This image is only {width}px wide. 360° panoramas need at least 4000px to stay sharp — upload the original render if you have it.",
     "messages": {
       "title": "Messages",
       "subtitle": "Project inquiries submitted through the contact form.",
