@@ -50,10 +50,6 @@ export default function Navbar({ locale, dict }) {
     document.cookie = `NEXT_LOCALE=${target}; path=/; max-age=31536000; samesite=lax`;
   };
 
-  // The admin area has its own chrome; hide the public navbar there.
-  const isAdminRoute = /^\/(en|fr)\/admin(\/|$)/.test(pathname);
-  if (isAdminRoute) return null;
-
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ease-smooth ${

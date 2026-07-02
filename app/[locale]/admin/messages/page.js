@@ -1,6 +1,7 @@
 import { getDictionary } from "@/i18n/dictionaries";
 import prisma, { isDbEnabled } from "@/lib/prisma";
 import AdminMessageList from "@/components/admin/AdminMessageList";
+import DbBanner from "@/components/admin/DbBanner";
 import SignOutButton from "@/components/admin/SignOutButton";
 
 export const dynamic = "force-dynamic";
@@ -25,13 +26,10 @@ export default async function AdminMessagesPage({ params }) {
       </div>
 
       {!isDbEnabled && (
-        <div className="mt-8 border-l-2 border-blueprint bg-mist/50 p-5">
-          <p className="text-sm leading-relaxed text-graphite">
-            <span className="font-medium text-ink">No database connected.</span>{" "}
-            Set <code className="font-mono text-[13px]">DATABASE_URL</code>, run the Prisma
-            migration, then restart to receive contact messages here.
-          </p>
-        </div>
+        <DbBanner>
+          Set <code className="font-mono text-[13px]">DATABASE_URL</code>, run the Prisma
+          migration, then restart to receive contact messages here.
+        </DbBanner>
       )}
 
       <div className="mt-10">

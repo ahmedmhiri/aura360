@@ -1,24 +1,16 @@
 import { NextResponse } from "next/server";
 import prisma, { isDbEnabled } from "@/lib/prisma";
 import { isAuthenticated } from "@/lib/auth";
+import { dbDisabled, unauthorized, badRequest, readJson } from "@/lib/api";
 
 export const runtime = "nodejs";
-
-const dbDisabled = () =>
-  NextResponse.json({ ok: false, error: "Database is not configured." }, { status: 503 });
-const unauthorized = () =>
-  NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
 
 export async function PATCH(request, { params }) {
   if (!isAuthenticated()) return unauthorized();
   if (!isDbEnabled) return dbDisabled();
 
-  let body = {};
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request" }, { status: 400 });
-  }
+  const body = await readJson(request);
+  if (!body) return badRequest("Invalid request");
 
   try {
     const message = await prisma.message.update({
@@ -27,7 +19,7 @@ export async function PATCH(request, { params }) {
     });
     return NextResponse.json({ ok: true, message });
   } catch (e) {
-    return NextResponse.json({ ok: false, error: e.message }, { status: 400 });
+    return badRequest(e.message);
   }
 }
 
@@ -38,6 +30,6 @@ export async function DELETE(request, { params }) {
     await prisma.message.delete({ where: { id: params.id } });
     return NextResponse.json({ ok: true });
   } catch (e) {
-    return NextResponse.json({ ok: false, error: e.message }, { status: 400 });
+    return badRequest(e.message);
   }
 }

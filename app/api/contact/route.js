@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma, { isDbEnabled } from "@/lib/prisma";
+import { badRequest, readJson } from "@/lib/api";
 
 export const runtime = "nodejs";
 
@@ -8,12 +9,8 @@ export const runtime = "nodejs";
 // production, you could additionally wire this to Resend, Nodemailer/SMTP, or
 // a CRM webhook (see README).
 export async function POST(request) {
-  let data = {};
-  try {
-    data = await request.json();
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request" }, { status: 400 });
-  }
+  const data = await readJson(request);
+  if (!data) return badRequest("Invalid request");
 
   const name = String(data.name || "").trim();
   const email = String(data.email || "").trim();
@@ -21,10 +18,10 @@ export async function POST(request) {
   const message = String(data.message || "").trim();
 
   if (!name || !email || !message) {
-    return NextResponse.json({ ok: false, error: "Missing required fields." }, { status: 400 });
+    return badRequest("Missing required fields.");
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return NextResponse.json({ ok: false, error: "Invalid email." }, { status: 400 });
+    return badRequest("Invalid email.");
   }
 
   console.log("[aura360lab] New contact inquiry:", {

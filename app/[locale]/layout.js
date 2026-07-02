@@ -71,7 +71,9 @@ export default async function LocaleLayout({ children, params }) {
         >
           {dict.nav.skipToContent}
         </a>
-        <Navbar locale={locale} dict={dict.nav} />
+        <ChromeGate>
+          <Navbar locale={locale} dict={dict.nav} />
+        </ChromeGate>
         <main id="main">{children}</main>
         <ChromeGate>
           <Footer locale={locale} dict={dict} />

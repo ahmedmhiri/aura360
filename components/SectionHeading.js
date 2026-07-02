@@ -1,21 +1,11 @@
 import { Reveal } from "@/components/motion";
 
-/**
- * Section heading with a mono eyebrow and a 360°-style index tick.
- * `index` is optional and only shown when the content is genuinely a catalog.
- */
-export default function SectionHeading({ eyebrow, title, intro, index, align = "left" }) {
+/** Section heading with a mono eyebrow, title and optional intro. */
+export default function SectionHeading({ eyebrow, title, intro }) {
   return (
-    <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-3xl"}>
+    <div className="max-w-3xl">
       <Reveal>
-        <div
-          className={`flex items-center gap-3 ${
-            align === "center" ? "justify-center" : ""
-          }`}
-        >
-          <span className="annotation text-blueprint">{eyebrow}</span>
-          {index ? <span className="annotation text-ash/70">{index}</span> : null}
-        </div>
+        <span className="annotation text-blueprint">{eyebrow}</span>
       </Reveal>
       {title ? (
         <Reveal delay={0.05}>

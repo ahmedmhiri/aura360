@@ -4,6 +4,7 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { getProjects } from "@/lib/projects";
 import { isDbEnabled } from "@/lib/prisma";
 import AdminProjectList from "@/components/admin/AdminProjectList";
+import DbBanner from "@/components/admin/DbBanner";
 import SignOutButton from "@/components/admin/SignOutButton";
 
 export const dynamic = "force-dynamic";
@@ -36,14 +37,11 @@ export default async function AdminDashboard({ params }) {
       </div>
 
       {!isDbEnabled && (
-        <div className="mt-8 border-l-2 border-blueprint bg-mist/50 p-5">
-          <p className="text-sm leading-relaxed text-graphite">
-            <span className="font-medium text-ink">No database connected.</span>{" "}
-            You are viewing read-only sample data. Set <code className="font-mono text-[13px]">DATABASE_URL</code>,
-            run the Prisma migration and seed, then restart to create, edit and
-            delete projects here.
-          </p>
-        </div>
+        <DbBanner>
+          You are viewing read-only sample data. Set <code className="font-mono text-[13px]">DATABASE_URL</code>,
+          run the Prisma migration and seed, then restart to create, edit and
+          delete projects here.
+        </DbBanner>
       )}
 
       <div className="mt-10">

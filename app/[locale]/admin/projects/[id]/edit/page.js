@@ -20,26 +20,6 @@ export default async function EditProjectPage({ params }) {
 
   if (!project) notFound();
 
-  const initial = {
-    id: project.id,
-    slug: project.slug,
-    titleEn: project.titleEn,
-    titleFr: project.titleFr,
-    descriptionEn: project.descriptionEn,
-    descriptionFr: project.descriptionFr,
-    typeEn: project.typeEn,
-    typeFr: project.typeFr,
-    location: project.location,
-    year: project.year ?? "",
-    coverImage: project.coverImage,
-    gallery: project.gallery || [],
-    servicesEn: project.servicesEn || [],
-    servicesFr: project.servicesFr || [],
-    featured: project.featured,
-    order: project.order ?? 0,
-    categoryId: project.categoryId,
-  };
-
   return (
     <div>
       <h1 className="mb-8 font-display text-3xl font-bold uppercase tracking-tightest text-ink sm:text-4xl">
@@ -49,7 +29,7 @@ export default async function EditProjectPage({ params }) {
         locale={locale}
         dict={dict.admin}
         categories={categories}
-        initial={initial}
+        initial={project}
         projectId={project.id}
       />
     </div>

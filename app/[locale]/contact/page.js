@@ -17,6 +17,43 @@ export async function generateMetadata({ params }) {
   };
 }
 
+function ContactList({ items, external = false }) {
+  return (
+    <ul className="mt-6 border-t hairline">
+      {items.map(({ Icon, label, value, href }) => (
+        <li key={label}>
+          <a
+            href={href}
+            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className="group flex items-center justify-between gap-4 border-b hairline py-5 transition-colors hover:bg-ink hover:px-4"
+          >
+            <span className="flex items-center gap-4">
+              <Icon
+                size={20}
+                strokeWidth={1.5}
+                className="text-ash transition-colors group-hover:text-bone"
+              />
+              <span>
+                <span className="annotation block text-ash transition-colors group-hover:text-bone/60">
+                  {label}
+                </span>
+                <span className="mt-1 block text-base text-ink transition-colors group-hover:text-bone">
+                  {value}
+                </span>
+              </span>
+            </span>
+            <ArrowUpRight
+              size={18}
+              strokeWidth={1.5}
+              className="shrink-0 text-ash transition-all group-hover:text-bone"
+            />
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default async function ContactPage({ params }) {
   const { locale } = params;
   const dict = await getDictionary(locale);
@@ -67,72 +104,10 @@ export default async function ContactPage({ params }) {
           <Reveal delay={0.1}>
             <div>
               <span className="annotation text-ash">{t.directTitle}</span>
-              <ul className="mt-6 border-t hairline">
-                {direct.map(({ Icon, label, value, href }) => (
-                  <li key={label}>
-                    <a
-                      href={href}
-                      className="group flex items-center justify-between gap-4 border-b hairline py-5 transition-colors hover:bg-ink hover:px-4"
-                    >
-                      <span className="flex items-center gap-4">
-                        <Icon
-                          size={20}
-                          strokeWidth={1.5}
-                          className="text-ash transition-colors group-hover:text-bone"
-                        />
-                        <span>
-                          <span className="annotation block text-ash transition-colors group-hover:text-bone/60">
-                            {label}
-                          </span>
-                          <span className="mt-1 block text-base text-ink transition-colors group-hover:text-bone">
-                            {value}
-                          </span>
-                        </span>
-                      </span>
-                      <ArrowUpRight
-                        size={18}
-                        strokeWidth={1.5}
-                        className="shrink-0 text-ash transition-all group-hover:text-bone"
-                      />
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <ContactList items={direct} />
 
               <span className="annotation mt-12 block text-ash">{t.followTitle}</span>
-              <ul className="mt-6 border-t hairline">
-                {social.map(({ Icon, label, value, href }) => (
-                  <li key={label}>
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center justify-between gap-4 border-b hairline py-5 transition-colors hover:bg-ink hover:px-4"
-                    >
-                      <span className="flex items-center gap-4">
-                        <Icon
-                          size={20}
-                          strokeWidth={1.5}
-                          className="text-ash transition-colors group-hover:text-bone"
-                        />
-                        <span>
-                          <span className="annotation block text-ash transition-colors group-hover:text-bone/60">
-                            {label}
-                          </span>
-                          <span className="mt-1 block text-base text-ink transition-colors group-hover:text-bone">
-                            {value}
-                          </span>
-                        </span>
-                      </span>
-                      <ArrowUpRight
-                        size={18}
-                        strokeWidth={1.5}
-                        className="shrink-0 text-ash transition-all group-hover:text-bone"
-                      />
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <ContactList items={social} external />
             </div>
           </Reveal>
         </aside>

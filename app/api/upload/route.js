@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
 import { isAuthenticated } from "@/lib/auth";
+import { unauthorized, badRequest } from "@/lib/api";
 
 export const runtime = "nodejs";
 
 const ALLOWED = ["jpg", "jpeg", "png", "webp", "avif", "gif"];
-
-const unauthorized = () =>
-  NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
 
 export async function POST(request) {
   if (!isAuthenticated()) return unauthorized();
@@ -15,12 +13,12 @@ export async function POST(request) {
   try {
     form = await request.formData();
   } catch {
-    return NextResponse.json({ ok: false, error: "Invalid form data" }, { status: 400 });
+    return badRequest("Invalid form data");
   }
 
   const file = form.get("file");
   if (!file || typeof file === "string") {
-    return NextResponse.json({ ok: false, error: "No file provided." }, { status: 400 });
+    return badRequest("No file provided.");
   }
 
   const ext =
@@ -28,7 +26,7 @@ export async function POST(request) {
       ? file.name.split(".").pop().toLowerCase().replace(/[^a-z0-9]/g, "")
       : "jpg";
   if (!ALLOWED.includes(ext)) {
-    return NextResponse.json({ ok: false, error: "Unsupported file type." }, { status: 400 });
+    return badRequest("Unsupported file type.");
   }
 
   const name = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;

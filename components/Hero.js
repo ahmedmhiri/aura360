@@ -97,8 +97,9 @@ export default function Hero({ locale, dict, images }) {
             transition={{ delay: 0.5, duration: 0.8 }}
           >
             <span
-              className="inline-block h-3 w-3 rounded-full border border-blueprint-soft/80 border-t-transparent"
-              style={reduce ? {} : { animation: "spin 3.5s linear infinite" }}
+              className={`inline-block h-3 w-3 rounded-full border border-blueprint-soft/80 border-t-transparent ${
+                reduce ? "" : "animate-[spin_3.5s_linear_infinite]"
+              }`}
             />
             {dict.panorama}
           </motion.span>
@@ -172,14 +173,6 @@ export default function Hero({ locale, dict, images }) {
           )}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
     </section>
   );
 }

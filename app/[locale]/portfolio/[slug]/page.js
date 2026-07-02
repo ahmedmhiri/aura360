@@ -1,14 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getDictionary } from "@/i18n/dictionaries";
-import {
-  getProjectBySlug,
-  getRelatedProjects,
-  getProjects,
-  getAllProjectSlugs,
-} from "@/lib/projects";
+import { getProjectBySlug, getProjects, getAllProjectSlugs } from "@/lib/projects";
 import { pick } from "@/i18n/config";
 import { Reveal } from "@/components/motion";
 import Gallery from "@/components/Gallery";
@@ -63,10 +57,10 @@ export default async function ProjectDetailPage({ params }) {
   const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
-  const [related, all] = await Promise.all([
-    getRelatedProjects(slug, project.category.slug, 3),
-    getProjects({}),
-  ]);
+  const all = await getProjects({});
+  const related = all
+    .filter((p) => p.slug !== slug && p.category.slug === project.category.slug)
+    .slice(0, 3);
 
   // Determine the "next project" by walking the full ordered list.
   const idx = all.findIndex((p) => p.slug === slug);

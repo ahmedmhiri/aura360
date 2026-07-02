@@ -1,13 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma, { isDbEnabled } from "@/lib/prisma";
 import { isAuthenticated } from "@/lib/auth";
+import { dbDisabled, unauthorized, badRequest, readJson } from "@/lib/api";
 
 export const runtime = "nodejs";
-
-const dbDisabled = () =>
-  NextResponse.json({ ok: false, error: "Database is not configured." }, { status: 503 });
-const unauthorized = () =>
-  NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
 
 export async function GET() {
   if (!isDbEnabled) return dbDisabled();
@@ -23,20 +19,14 @@ export async function POST(request) {
   if (!isAuthenticated()) return unauthorized();
   if (!isDbEnabled) return dbDisabled();
 
-  let body = {};
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request" }, { status: 400 });
-  }
+  const body = await readJson(request);
+  if (!body) return badRequest("Invalid request");
 
   const slug = String(body.slug || "").trim();
   const nameEn = String(body.nameEn || "").trim();
   const nameFr = String(body.nameFr || "").trim();
-  if (!slug || !/^[a-z0-9-]+$/.test(slug))
-    return NextResponse.json({ ok: false, error: "Invalid slug." }, { status: 400 });
-  if (!nameEn || !nameFr)
-    return NextResponse.json({ ok: false, error: "Both names are required." }, { status: 400 });
+  if (!slug || !/^[a-z0-9-]+$/.test(slug)) return badRequest("Invalid slug.");
+  if (!nameEn || !nameFr) return badRequest("Both names are required.");
 
   try {
     const category = await prisma.category.create({
@@ -45,6 +35,6 @@ export async function POST(request) {
     return NextResponse.json({ ok: true, category }, { status: 201 });
   } catch (e) {
     const msg = e.code === "P2002" ? "That category slug already exists." : e.message;
-    return NextResponse.json({ ok: false, error: msg }, { status: 400 });
+    return badRequest(msg);
   }
 }
