@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Pano360 from "@/components/Pano360";
+import dynamic from "next/dynamic";
+
+const Pano360 = dynamic(() => import("@/components/Pano360"), { ssr: false });
 
 // Inline (non-modal) viewer for one or more 360° panoramas. A modal lightbox
 // would conflict with drag-to-look: releasing a drag on the backdrop would

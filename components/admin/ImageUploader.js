@@ -3,8 +3,8 @@
 import { useRef, useState } from "react";
 import { Upload, X, Plus, Link2 } from "lucide-react";
 
-const MAX_DIMENSION = 1600;
-const JPEG_QUALITY = 0.8;
+const MAX_DIMENSION = 4096;
+const JPEG_QUALITY = 0.88;
 
 function readFileAsDataURL(file) {
   return new Promise((resolve, reject) => {
@@ -24,10 +24,10 @@ function loadImage(src) {
   });
 }
 
-// Downscales + re-encodes the file as a compressed JPEG data URL entirely in
-// the browser, so the result can be stored alongside the project data with
-// no server filesystem or storage service involved.
-async function compressImage(file, maxDimension = MAX_DIMENSION, quality = JPEG_QUALITY) {
+// Resizes the image client-side (preserving aspect ratio up to maxDimension)
+// then uploads it to /api/upload, returning the stored URL.
+// Falls back to a base64 data URL only if the upload API is unreachable.
+async function uploadImage(file, maxDimension = MAX_DIMENSION, quality = JPEG_QUALITY) {
   const dataUrl = await readFileAsDataURL(file);
   const img = await loadImage(dataUrl);
   const scale = Math.min(1, maxDimension / Math.max(img.width, img.height));
@@ -42,18 +42,17 @@ async function compressImage(file, maxDimension = MAX_DIMENSION, quality = JPEG_
   ctx.fillRect(0, 0, width, height);
   ctx.drawImage(img, 0, 0, width, height);
 
-  return canvas.toDataURL("image/jpeg", quality);
+  // Convert canvas to Blob and POST to the upload API.
+  const blob = await new Promise((res) => canvas.toBlob(res, "image/jpeg", quality));
+  const form = new FormData();
+  form.append("file", blob, "image.jpg");
+
+  const res = await fetch("/api/upload", { method: "POST", body: form });
+  const data = await res.json();
+  if (!res.ok || !data.ok) throw new Error(data.error || "Upload failed");
+  return data.url;
 }
 
-/**
- * Image field for the admin form. Compresses chosen files to a data URL
- * entirely in the browser (no server upload needed) and also accepts
- * pasting an existing image URL. Works as a single field or a multi-image
- * gallery depending on the `multiple` prop.
- *
- * value:    string (single) | string[] (multiple)
- * onChange: (next) => void   // same shape as value
- */
 export default function ImageUploader({
   value,
   onChange,
@@ -72,13 +71,15 @@ export default function ImageUploader({
 
   const commit = (next) => onChange(multiple ? next : next[0] || "");
 
-  const uploadFiles = async (files) => {
+  const onFiles = async (e) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
     setError("");
     setBusy(true);
     try {
       const uploaded = [];
       for (const file of files) {
-        uploaded.push(await compressImage(file, maxDimension, quality));
+        uploaded.push(await uploadImage(file, maxDimension, quality));
       }
       commit(multiple ? [...images, ...uploaded] : uploaded.slice(-1));
     } catch (e) {
@@ -87,11 +88,6 @@ export default function ImageUploader({
       setBusy(false);
       if (inputRef.current) inputRef.current.value = "";
     }
-  };
-
-  const onFiles = (e) => {
-    const files = Array.from(e.target.files || []);
-    if (files.length) uploadFiles(files);
   };
 
   const addUrl = () => {
@@ -107,7 +103,6 @@ export default function ImageUploader({
     <div>
       {label ? <span className="annotation mb-2 block text-ash">{label}</span> : null}
 
-      {/* Previews */}
       {images.length > 0 && (
         <div className={`mb-3 grid gap-3 ${multiple ? "grid-cols-3 sm:grid-cols-4" : "grid-cols-1"}`}>
           {images.map((src, i) => (
@@ -117,7 +112,6 @@ export default function ImageUploader({
                 multiple ? "aspect-square" : "aspect-[16/10]"
               }`}
             >
-              {/* Plain <img> keeps arbitrary upload/remote URLs simple in admin. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={src} alt="" className="h-full w-full object-cover" />
               <button
@@ -133,7 +127,6 @@ export default function ImageUploader({
         </div>
       )}
 
-      {/* Upload control */}
       <div className="flex flex-wrap items-center gap-3">
         <input
           ref={inputRef}

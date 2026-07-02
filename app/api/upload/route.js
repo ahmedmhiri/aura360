@@ -1,19 +1,15 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
 import { isAuthenticated } from "@/lib/auth";
 
 export const runtime = "nodejs";
 
 const ALLOWED = ["jpg", "jpeg", "png", "webp", "avif", "gif"];
 
-// Saves uploads to /public/uploads and returns a public URL.
-// NOTE: on serverless hosts (e.g. Vercel) the filesystem is ephemeral and not
-// shared between instances — swap this for S3 / Cloudinary / UploadThing in
-// production. See the README "Image uploads" section.
+const unauthorized = () =>
+  NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
+
 export async function POST(request) {
-  if (!isAuthenticated())
-    return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
+  if (!isAuthenticated()) return unauthorized();
 
   let form;
   try {
@@ -35,16 +31,31 @@ export async function POST(request) {
     return NextResponse.json({ ok: false, error: "Unsupported file type." }, { status: 400 });
   }
 
-  const bytes = Buffer.from(await file.arrayBuffer());
   const name = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-  const dir = path.join(process.cwd(), "public", "uploads");
 
+  // Use Vercel Blob when available (production), fall back to /public/uploads in dev.
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    try {
+      const { put } = await import("@vercel/blob");
+      const { url } = await put(`uploads/${name}`, file.stream(), {
+        access: "public",
+        contentType: file.type || "image/jpeg",
+      });
+      return NextResponse.json({ ok: true, url });
+    } catch (e) {
+      return NextResponse.json({ ok: false, error: e.message }, { status: 500 });
+    }
+  }
+
+  // Local dev fallback: write to /public/uploads/
   try {
+    const { writeFile, mkdir } = await import("fs/promises");
+    const { join } = await import("path");
+    const dir = join(process.cwd(), "public", "uploads");
     await mkdir(dir, { recursive: true });
-    await writeFile(path.join(dir, name), bytes);
+    await writeFile(join(dir, name), Buffer.from(await file.arrayBuffer()));
+    return NextResponse.json({ ok: true, url: `/uploads/${name}` });
   } catch (e) {
     return NextResponse.json({ ok: false, error: e.message }, { status: 500 });
   }
-
-  return NextResponse.json({ ok: true, url: `/uploads/${name}` });
 }

@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import Pano360 from "@/components/Pano360";
+
+const Pano360 = dynamic(() => import("@/components/Pano360"), { ssr: false });
 
 const DURATION = 6000;
 

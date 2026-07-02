@@ -29,3 +29,6 @@ yarn-error.log*
 # uploads (keep the folder, ignore user uploads)
 /public/uploads/*
 !/public/uploads/.gitkeep
+
+.vercel
+.env*
