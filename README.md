@@ -1,8 +1,23 @@
 # AURA360LAB
 
+![Next.js](https://img.shields.io/badge/Next.js-14-000000?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-5-2D3748?logo=prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+
 A bilingual (EN/FR) portfolio website for an architecture & visualization studio — architecture, 3D visualization and interior design. Built with **Next.js 14 (App Router, JavaScript)**, **Tailwind CSS**, **Framer Motion** and **Prisma + PostgreSQL**, with a built‑in admin dashboard so the studio owner can manage projects without touching code.
 
 > **Design language:** an "architectural drawing" system — warm paper neutrals, near‑black ink, a single restrained blueprint‑blue accent, mono coordinate/annotation labels and hairline registration ticks. Type is Archivo (display) + Inter (body) + JetBrains Mono (annotations).
+
+---
+
+## Screenshots
+
+| Home / hero | Portfolio | Admin dashboard |
+| --- | --- | --- |
+| ![Hero / landing page](./docs/screenshots/hero.png) | ![Portfolio page](./docs/screenshots/portfolio.png) | ![Admin dashboard](./docs/screenshots/admin.png) |
 
 ---
 
