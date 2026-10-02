@@ -2,7 +2,7 @@
   "meta": {
     "siteName": "AURA360LAB",
     "defaultTitle": "AURA360LAB — Architecture, 3D Visualization & Interior Design",
-    "defaultDescription": "AURA360LAB is an architecture and visualization studio crafting buildings, interiors, and the renders that bring them to life."
+    "defaultDescription": "AURA360LAB is an architecture, interior design and 3D visualization studio in Marrakech. From a story to a space — architecture beyond form."
   },
   "nav": {
     "home": "Home",
@@ -14,8 +14,8 @@
   },
   "hero": {
     "eyebrow": "Architecture / 3D Visualization / Interiors",
-    "title": "Designing space.\nRendering light.",
-    "subtitle": "An architecture and visualization studio shaping buildings, interiors, and the images that make them real.",
+    "title": "From a story\nto a space.",
+    "subtitle": "Architecture beyond form.",
     "viewPortfolio": "View portfolio",
     "contact": "Contact us",
     "panorama": "360° panorama"
@@ -49,13 +49,8 @@
   "aboutPreview": {
     "eyebrow": "The studio",
     "statement": "We believe a building should be felt before it is built. AURA360LAB unites architecture, interior design and visualization so an idea reads clearly — in plan, in light and in full immersion.",
-    "more": "More about us"
-  },
-  "stats": {
-    "projects": "Projects delivered",
-    "years": "Years of practice",
-    "countries": "Countries",
-    "awards": "Design awards"
+    "more": "More about us",
+    "imageAlt": "Hands pointing at AURA360LAB floor plans and renders on a desk"
   },
   "contactCta": {
     "eyebrow": "Start a project",
@@ -87,28 +82,37 @@
   },
   "about": {
     "title": "Studio",
-    "lead": "AURA360LAB is an architecture and visualization studio working between design and image — shaping buildings and interiors, then rendering them with the clarity of a photograph.",
+    "lead": "AURA360LAB is an architecture, interior design and 3D visualization studio founded in 2025 and based in Marrakech.",
     "storyTitle": "Our story",
-    "story": "AURA360LAB began with a simple frustration: great architecture too often gets lost in translation between the drawing board and the people it is built for. We set out to close that gap by keeping design and visualization under one roof. Today we work with developers, private clients and fellow architects to take projects from first concept to fully rendered reality.",
-    "missionTitle": "Mission",
-    "mission": "To make architecture understandable and felt — turning complex ideas into spaces and images everyone in the room can read.",
-    "visionTitle": "Vision",
-    "vision": "A practice where design and visualization are never separate steps, but a single continuous craft.",
-    "philosophyTitle": "Design philosophy",
-    "philosophy": "We design with restraint. Light, proportion and material do the talking; everything unnecessary is removed. The same discipline carries into our renders — honest, calm and precise.",
-    "teamTitle": "Team",
-    "teamIntro": "A compact studio of architects, designers and visualization artists.",
-    "statsTitle": "By the numbers"
+    "storyHeadline": "From a story to a space.",
+    "story": [
+      "AURA 360 LAB was born from a simple idea: architecture should have a feeling of its own.",
+      "We see every project as a dialogue between a place and the people connected to it. Whether it is a home, a hospitality space, a workplace, or a small detail, there is always something to discover... A story waiting to be told.",
+      "We are interested in spaces that feel personal rather than simply designed. Spaces where a material invites you to touch it, where light changes throughout the day, and where a crafted detail gives character to an ordinary moment.",
+      "We don't seek to make every project look like AURA. We seek to make every project feel like itself.",
+      "That is where its unique AURA begins."
+    ],
+    "storyImageAlt": "Saad Benlyamani and Mansour Kammoun, founders of AURA360LAB, in the studio",
+    "visionTitle": "Our vision",
+    "visionHeadline": "Architecture beyond form.",
+    "vision": [
+      "We believe architecture is not only what we see. It is what we feel, touch, hear, and remember.",
+      "At AURA 360 LAB, we explore the relationship between space, material, light, and human experience. We design environments where every texture, shadow, opening, and detail contributes to a deeper sense of place.",
+      "Our approach is rooted in local materials, craftsmanship, and experimentation, combining architectural thinking with an attentive understanding of how spaces are actually experienced."
+    ],
+    "teamTitle": "Founders",
+    "teamIntro": "AURA360LAB was founded in 2025 by two architects."
   },
   "team": {
     "founder": "Founder & Principal Architect",
-    "lead3d": "Lead Visualization Artist",
-    "interior": "Head of Interior Design",
-    "architect": "Project Architect"
+    "bios": {
+      "saad": "Trained in architecture in Tunisia and professionally shaped in Morocco, Saad brings a strategic and client-centred vision to AURA 360 LAB. He approaches every project like a carefully considered move—understanding its needs, anticipating possibilities, and transforming the client's vision into thoughtful, tailor-made architecture.",
+      "mansour": "A Tunisian architect specializing in architectural design and 3D visualization, Mansour has developed an approach in which technical mastery serves emotion and spatial storytelling. Named North Africa's Best ArchViz Student in 2019, he explores light, materials and proportions to create spaces that feel refined, coherent and timeless."
+    }
   },
   "contact": {
     "title": "Contact",
-    "lead": "Tell us about your project. We typically reply within two business days.",
+    "lead": "Tell us about your project. We typically reply within 24 hours.",
     "formTitle": "Project inquiry",
     "name": "Name",
     "email": "Email",
@@ -126,15 +130,15 @@
     "followTitle": "Follow",
     "phone": "Phone",
     "whatsapp": "WhatsApp",
-    "email": "Email"
+    "address": "Studio"
   },
   "footer": {
-    "tagline": "Architecture, 3D visualization and interior design.",
+    "tagline": "Architecture, 3D visualization and interior design. Marrakech, since 2025.",
     "explore": "Explore",
     "connect": "Connect",
     "studio": "Studio",
     "rights": "All rights reserved.",
-    "coordinates": "N 25.2854° / E 51.5310°",
+    "coordinates": "N 31.64° / W 8.01°",
     "builtBy": "Designed & built by the studio."
   },
   "admin": {

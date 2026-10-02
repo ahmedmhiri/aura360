@@ -8,12 +8,16 @@ import { pick } from "@/i18n/config";
 
 export default function PortfolioGrid({
   projects,
-  categories,
+  categories: allCategories,
   locale,
   dict,
   initialCategory = "all",
 }) {
   const reduce = useReducedMotion();
+  // Hide filter tabs that would show an empty grid.
+  const categories = allCategories.filter((c) =>
+    projects.some((p) => p.category.slug === c.slug)
+  );
   const [active, setActive] = useState(
     categories.some((c) => c.slug === initialCategory) ? initialCategory : "all"
   );

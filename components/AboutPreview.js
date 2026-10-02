@@ -28,8 +28,8 @@ export default function AboutPreview({ locale, dict }) {
           <Reveal delay={0.1}>
             <div className="plate relative aspect-[4/5] w-full overflow-hidden text-bone/70">
               <Image
-                src="https://picsum.photos/seed/aura-studio/900/1120"
-                alt=""
+                src="/images/studio-plans.jpg"
+                alt={dict.imageAlt}
                 fill
                 sizes="(min-width: 768px) 40vw, 100vw"
                 className="object-cover"

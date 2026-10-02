@@ -1,10 +1,13 @@
 import { getDictionary } from "@/i18n/dictionaries";
-import { getFeaturedProjects } from "@/lib/projects";
+import { getFeaturedProjects, getProjectBySlug } from "@/lib/projects";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import AboutPreview from "@/components/AboutPreview";
 import ContactCTA from "@/components/ContactCTA";
+
+// Project whose cover illustrates each service on hover (studio's choice).
+const SERVICE_PREVIEW_SLUGS = { interior: "a-apartment", visualization: "classic" };
 
 // Fallback renders so the hero always has a slideshow, even before any
 // projects exist in the database.
@@ -18,6 +21,13 @@ export default async function HomePage({ params }) {
   const { locale } = params;
   const dict = await getDictionary(locale);
   const featured = await getFeaturedProjects(6);
+  const previewEntries = await Promise.all(
+    Object.entries(SERVICE_PREVIEW_SLUGS).map(async ([key, slug]) => {
+      const project = await getProjectBySlug(slug);
+      return [key, project?.coverImage || null];
+    })
+  );
+  const servicePreviews = Object.fromEntries(previewEntries.filter(([, src]) => src));
 
   const heroImages = featured.length
     ? featured
@@ -29,7 +39,7 @@ export default async function HomePage({ params }) {
   return (
     <>
       <Hero locale={locale} dict={dict.hero} images={heroImages} />
-      <Services locale={locale} dict={dict.services} />
+      <Services locale={locale} dict={dict.services} previews={servicePreviews} />
       <FeaturedProjects locale={locale} dict={dict.featured} projects={featured} />
       <AboutPreview locale={locale} dict={dict.aboutPreview} />
       <ContactCTA locale={locale} dict={dict.contactCta} />

@@ -5,12 +5,14 @@ import { Reveal } from "@/components/motion";
 import SectionHeading from "@/components/SectionHeading";
 
 const SERVICES = [
-  { key: "architecture", Icon: Building2, category: "architecture", seed: "svc-arch" },
-  { key: "visualization", Icon: Box, category: "visualization", seed: "svc-viz" },
-  { key: "interior", Icon: Armchair, category: "interior", seed: "svc-int" },
+  { key: "architecture", Icon: Building2, category: "architecture" },
+  { key: "visualization", Icon: Box, category: "visualization" },
+  { key: "interior", Icon: Armchair, category: "interior" },
 ];
 
-export default function Services({ locale, dict }) {
+// `previews` maps a service key to a render shown on hover; a service without
+// one (architecture, until the studio has a logo file) shows the wordmark.
+export default function Services({ locale, dict, previews = {} }) {
   return (
     <section className="mx-auto max-w-site px-5 py-24 sm:px-8 md:py-32">
       <SectionHeading
@@ -20,7 +22,7 @@ export default function Services({ locale, dict }) {
       />
 
       <div className="mt-16 border-t hairline">
-        {SERVICES.map(({ key, Icon, category, seed }, i) => {
+        {SERVICES.map(({ key, Icon, category }, i) => {
           const item = dict.items[key];
           return (
             <Reveal key={key} delay={i * 0.06}>
@@ -58,13 +60,21 @@ export default function Services({ locale, dict }) {
 
                 {/* Floating render preview on hover (desktop) */}
                 <div className="pointer-events-none absolute right-24 top-1/2 hidden h-28 w-44 -translate-y-1/2 overflow-hidden opacity-0 transition-all duration-500 ease-smooth group-hover:opacity-100 lg:block">
-                  <Image
-                    src={`https://picsum.photos/seed/${seed}/600/400`}
-                    alt=""
-                    fill
-                    sizes="220px"
-                    className="object-cover"
-                  />
+                  {previews[key] ? (
+                    <Image
+                      src={previews[key]}
+                      alt=""
+                      fill
+                      sizes="220px"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center border border-bone/30 bg-ink">
+                      <span className="font-display text-lg font-bold uppercase tracking-tightest text-bone">
+                        AURA<span className="text-blueprint-soft">360</span>LAB
+                      </span>
+                    </div>
+                  )}
                 </div>
               </Link>
             </Reveal>

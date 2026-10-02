@@ -1,4 +1,14 @@
-import { Mail, Phone, MessageCircle, Instagram, Linkedin, Globe, ArrowUpRight } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MessageCircle,
+  MapPin,
+  Instagram,
+  Linkedin,
+  Facebook,
+  Globe,
+  ArrowUpRight,
+} from "lucide-react";
 import { getDictionary } from "@/i18n/dictionaries";
 import { site } from "@/lib/site";
 import { Reveal } from "@/components/motion";
@@ -21,7 +31,7 @@ function ContactList({ items, external = false }) {
   return (
     <ul className="mt-6 border-t hairline">
       {items.map(({ Icon, label, value, href }) => (
-        <li key={label}>
+        <li key={href}>
           <a
             href={href}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -60,14 +70,33 @@ export default async function ContactPage({ params }) {
   const t = dict.contact;
 
   const direct = [
-    { Icon: Mail, label: t.email, value: site.email, href: `mailto:${site.email}` },
-    { Icon: Phone, label: t.phone, value: site.phone, href: site.phoneHref },
+    ...site.emails.map((email) => ({
+      Icon: Mail,
+      label: t.email,
+      value: email,
+      href: `mailto:${email}`,
+    })),
+    ...site.phones.map((phone) => ({
+      Icon: Phone,
+      label: t.phone,
+      value: phone.label,
+      href: phone.href,
+    })),
     { Icon: MessageCircle, label: t.whatsapp, value: site.whatsapp, href: site.whatsappHref },
+    {
+      Icon: MapPin,
+      label: t.address,
+      value: site.address,
+      href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        "Immeuble Drarga, Guéliz, Marrakech"
+      )}`,
+    },
   ];
 
   const social = [
     { Icon: Instagram, label: "Instagram", value: site.instagram, href: site.instagramHref },
     { Icon: Linkedin, label: "LinkedIn", value: site.linkedin, href: site.linkedinHref },
+    { Icon: Facebook, label: "Facebook", value: site.facebook, href: site.facebookHref },
     { Icon: Globe, label: "Behance", value: site.behance, href: site.behanceHref },
   ];
 

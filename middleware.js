@@ -9,21 +9,11 @@ const SESSION_COOKIE = "aura_session";
 const SESSION_PAYLOAD = "aura360lab-admin-v1";
 const DEV_SECRET = "aura360lab-dev-secret-change-me";
 
+// English opens by default for every visitor (studio's choice); a visitor
+// who switches language keeps it through the NEXT_LOCALE cookie.
 function getLocale(request) {
-  // 1. Cookie preference
   const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
   if (cookieLocale && locales.includes(cookieLocale)) return cookieLocale;
-
-  // 2. Accept-Language header
-  const accept = request.headers.get("accept-language");
-  if (accept) {
-    const preferred = accept
-      .split(",")
-      .map((part) => part.split(";")[0].trim().slice(0, 2).toLowerCase());
-    const match = preferred.find((code) => locales.includes(code));
-    if (match) return match;
-  }
-
   return defaultLocale;
 }
 

@@ -1,15 +1,18 @@
 import { NextResponse } from "next/server";
 import prisma, { isDbEnabled } from "@/lib/prisma";
 import { badRequest, readJson } from "@/lib/api";
+import { site } from "@/lib/site";
 
 export const runtime = "nodejs";
 
 // TODO(owner): to enable email delivery, create a Resend account, verify a
-// sending domain, then set RESEND_API_KEY and CONTACT_TO_EMAIL (see
-// .env.example). Without the key this is a no-op and inquiries are only saved
-// to the database / logged.
+// sending domain, then set RESEND_API_KEY (see .env.example). Inquiries go to
+// CONTACT_TO_EMAIL, or the studio inbox in lib/site.js when it is unset.
+// Without the key this is a no-op and inquiries are only saved to the
+// database / logged.
 async function sendEmailNotification({ name, email, subject, message }) {
-  if (!process.env.RESEND_API_KEY || !process.env.CONTACT_TO_EMAIL) return;
+  const to = process.env.CONTACT_TO_EMAIL || site.contactInbox;
+  if (!process.env.RESEND_API_KEY || !to) return;
   try {
     const { Resend } = await import("resend");
     const resend = new Resend(process.env.RESEND_API_KEY);
@@ -17,7 +20,7 @@ async function sendEmailNotification({ name, email, subject, message }) {
       // TODO(owner): replace with an address on your verified Resend domain,
       // e.g. "AURA360LAB <studio@aura360lab.com>".
       from: process.env.CONTACT_FROM_EMAIL || "AURA360LAB <onboarding@resend.dev>",
-      to: process.env.CONTACT_TO_EMAIL,
+      to,
       replyTo: email,
       subject: subject ? `Inquiry: ${subject}` : `New inquiry from ${name}`,
       text: `From: ${name} <${email}>\n\n${message}`,

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram, Linkedin, Globe } from "lucide-react";
+import { Instagram, Linkedin, Facebook, Globe } from "lucide-react";
 import { site } from "@/lib/site";
 
 export default function Footer({ locale, dict }) {
@@ -47,22 +47,27 @@ export default function Footer({ locale, dict }) {
           <div className="md:col-span-4">
             <h3 className="annotation text-ash">{dict.footer.connect}</h3>
             <ul className="mt-5 space-y-3 text-sm">
-              <li>
-                <a
-                  href={`mailto:${site.email}`}
-                  className="text-graphite transition-colors hover:text-ink"
-                >
-                  {site.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={site.phoneHref}
-                  className="text-graphite transition-colors hover:text-ink"
-                >
-                  {site.phone}
-                </a>
-              </li>
+              {site.emails.map((email) => (
+                <li key={email}>
+                  <a
+                    href={`mailto:${email}`}
+                    className="text-graphite transition-colors hover:text-ink"
+                  >
+                    {email}
+                  </a>
+                </li>
+              ))}
+              {site.phones.map((phone) => (
+                <li key={phone.href}>
+                  <a
+                    href={phone.href}
+                    className="text-graphite transition-colors hover:text-ink"
+                  >
+                    {phone.label}
+                  </a>
+                </li>
+              ))}
+              <li className="text-graphite/80">{site.address}</li>
             </ul>
             <div className="mt-6 flex items-center gap-4">
               <a
@@ -82,6 +87,15 @@ export default function Footer({ locale, dict }) {
                 className="text-graphite transition-colors hover:text-ink"
               >
                 <Linkedin size={18} strokeWidth={1.5} />
+              </a>
+              <a
+                href={site.facebookHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="text-graphite transition-colors hover:text-ink"
+              >
+                <Facebook size={18} strokeWidth={1.5} />
               </a>
               <a
                 href={site.behanceHref}
