@@ -18,7 +18,7 @@ export default function Footer({ locale, dict }) {
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
             <Link href={`/${locale}`} className="inline-block text-ink" aria-label="AURA360LAB — home">
-              <Logo className="h-8 w-auto" title="AURA360LAB" />
+              <Logo className="h-10 w-auto md:h-11" title="AURA360LAB" />
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-graphite/80">
               {dict.footer.tagline}
