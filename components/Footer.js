@@ -30,12 +30,12 @@ export default function Footer({ locale, dict }) {
 
           <div className="md:col-span-3">
             <h3 className="annotation text-ash">{dict.footer.explore}</h3>
-            <ul className="mt-5 space-y-3">
+            <ul className="mt-3 md:mt-4">
               {explore.map((l) => (
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-sm text-graphite transition-colors hover:text-ink"
+                    className="inline-block py-3 text-sm text-graphite transition-colors hover:text-ink md:py-1.5"
                   >
                     {l.label}
                   </Link>
@@ -46,12 +46,12 @@ export default function Footer({ locale, dict }) {
 
           <div className="md:col-span-4">
             <h3 className="annotation text-ash">{dict.footer.connect}</h3>
-            <ul className="mt-5 space-y-3 text-sm">
+            <ul className="mt-3 text-sm md:mt-4">
               {site.emails.map((email) => (
                 <li key={email}>
                   <a
                     href={`mailto:${email}`}
-                    className="text-graphite transition-colors hover:text-ink"
+                    className="inline-block break-all py-3 text-graphite transition-colors hover:text-ink md:py-1.5"
                   >
                     {email}
                   </a>
@@ -61,21 +61,21 @@ export default function Footer({ locale, dict }) {
                 <li key={phone.href}>
                   <a
                     href={phone.href}
-                    className="text-graphite transition-colors hover:text-ink"
+                    className="inline-block break-all py-3 text-graphite transition-colors hover:text-ink md:py-1.5"
                   >
                     {phone.label}
                   </a>
                 </li>
               ))}
-              <li className="text-graphite/80">{site.address}</li>
+              <li className="py-3 text-graphite/80 md:py-1.5">{site.address}</li>
             </ul>
-            <div className="mt-6 flex items-center gap-4">
+            <div className="-ml-3 mt-3 flex items-center">
               <a
                 href={site.instagramHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="text-graphite transition-colors hover:text-ink"
+                className="flex h-11 w-11 items-center justify-center text-graphite transition-colors hover:text-ink"
               >
                 <Instagram size={18} strokeWidth={1.5} />
               </a>
@@ -84,7 +84,7 @@ export default function Footer({ locale, dict }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="text-graphite transition-colors hover:text-ink"
+                className="flex h-11 w-11 items-center justify-center text-graphite transition-colors hover:text-ink"
               >
                 <Linkedin size={18} strokeWidth={1.5} />
               </a>
@@ -93,7 +93,7 @@ export default function Footer({ locale, dict }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="text-graphite transition-colors hover:text-ink"
+                className="flex h-11 w-11 items-center justify-center text-graphite transition-colors hover:text-ink"
               >
                 <Facebook size={18} strokeWidth={1.5} />
               </a>

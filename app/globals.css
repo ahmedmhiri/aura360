@@ -107,6 +107,12 @@
   .link-underline:hover::after {
     @apply origin-left scale-x-100;
   }
+  /* Invisible padding so the small text link is an easy finger target
+     (~44px tall) without changing the layout. */
+  .link-underline::before {
+    content: "";
+    @apply absolute -inset-x-2 -inset-y-3;
+  }
 }
 
 @layer utilities {

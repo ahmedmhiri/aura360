@@ -14,7 +14,7 @@ export default function SignOutButton({ locale, label }) {
     <button
       type="button"
       onClick={signOut}
-      className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink"
+      className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink"
     >
       <LogOut size={14} strokeWidth={1.75} />
       {label}

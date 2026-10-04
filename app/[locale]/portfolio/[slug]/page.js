@@ -128,7 +128,11 @@ export default async function ProjectDetailPage({ params }) {
       {project.coverImage ? (
         <div className="mx-auto mt-10 max-w-site px-5 sm:px-8">
           <Reveal y={24}>
-            <div className="plate relative aspect-[16/10] w-full overflow-hidden bg-mist text-bone/70">
+            <div
+              className={`plate relative w-full overflow-hidden bg-mist text-bone/70 ${
+                project.coverImage360 ? "aspect-[4/5] sm:aspect-[16/10]" : "aspect-[16/10]"
+              }`}
+            >
               <ProjectCover
                 src={project.coverImage}
                 is360={project.coverImage360}

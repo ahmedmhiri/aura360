@@ -97,7 +97,7 @@ export default function AdminProjectList({ locale, dict, projects: initial, canE
                 type="button"
                 onClick={() => togglePublished(p.id, !p.published)}
                 disabled={!canEdit || pendingId === p.id}
-                className="flex h-9 w-9 items-center justify-center rounded-full text-ash transition-colors hover:bg-mist hover:text-ink disabled:opacity-40"
+                className="flex h-10 w-10 items-center justify-center rounded-full sm:h-9 sm:w-9 text-ash transition-colors hover:bg-mist hover:text-ink disabled:opacity-40"
                 title={p.published ? dict.unpublish : dict.publish}
               >
                 {p.published ? (
@@ -109,7 +109,7 @@ export default function AdminProjectList({ locale, dict, projects: initial, canE
               <Link
                 href={`/${locale}/admin/projects/${p.id}/edit`}
                 aria-disabled={!canEdit}
-                className={`flex h-9 w-9 items-center justify-center rounded-full text-ash transition-colors hover:bg-mist hover:text-ink ${
+                className={`flex h-10 w-10 items-center justify-center rounded-full sm:h-9 sm:w-9 text-ash transition-colors hover:bg-mist hover:text-ink ${
                   canEdit ? "" : "pointer-events-none opacity-40"
                 }`}
                 title={dict.edit}
@@ -120,7 +120,7 @@ export default function AdminProjectList({ locale, dict, projects: initial, canE
                 type="button"
                 onClick={() => remove(p.id)}
                 disabled={!canEdit || pendingId === p.id}
-                className="flex h-9 w-9 items-center justify-center rounded-full text-ash transition-colors hover:bg-mist hover:text-blueprint disabled:opacity-40"
+                className="flex h-10 w-10 items-center justify-center rounded-full sm:h-9 sm:w-9 text-ash transition-colors hover:bg-mist hover:text-blueprint disabled:opacity-40"
                 title={dict.delete}
               >
                 <Trash2 size={16} strokeWidth={1.5} />

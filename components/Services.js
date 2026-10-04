@@ -64,7 +64,9 @@ export default function Services({ locale, dict, previews = {}, videos = {} }) {
                   ) : null}
                 </div>
 
-                <div className="flex items-center justify-start md:col-span-1 md:justify-end">
+                {/* Decorative arrow: on phones it would sit alone on its own
+                    line, and the whole row is the link anyway. */}
+                <div className="hidden items-center justify-end md:col-span-1 md:flex">
                   <span className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink transition-all duration-500 group-hover:border-bone group-hover:text-bone">
                     <ArrowUpRight
                       size={18}

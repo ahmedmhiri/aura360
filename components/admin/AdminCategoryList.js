@@ -15,7 +15,8 @@ const slugify = (s) =>
 const EMPTY = { slug: "", nameEn: "", nameFr: "", order: 0 };
 
 const fieldClass =
-  "w-full border-b border-line bg-transparent py-2 text-sm text-ink placeholder:text-ash/60 transition-colors focus:border-ink focus:outline-none";
+  // 16px on phones: iOS Safari zooms the page into any smaller input.
+  "w-full border-b border-line bg-transparent py-2 text-base text-ink placeholder:text-ash/60 transition-colors focus:border-ink focus:outline-none sm:text-sm";
 const labelClass = "annotation mb-1.5 block text-ash";
 
 function CategoryFields({ dict, form, setForm, slugTouched, setSlugTouched }) {
@@ -180,7 +181,7 @@ export default function AdminCategoryList({ locale, dict, categories, canEdit })
                   type="button"
                   onClick={() => startEdit(c)}
                   disabled={!canEdit || busy}
-                  className="flex h-9 w-9 items-center justify-center rounded-full text-ash transition-colors hover:bg-mist hover:text-ink disabled:opacity-40"
+                  className="flex h-10 w-10 items-center justify-center rounded-full sm:h-9 sm:w-9 text-ash transition-colors hover:bg-mist hover:text-ink disabled:opacity-40"
                   title={dict.save}
                 >
                   <Pencil size={16} strokeWidth={1.5} />
@@ -189,7 +190,7 @@ export default function AdminCategoryList({ locale, dict, categories, canEdit })
                   type="button"
                   onClick={() => remove(c.id)}
                   disabled={!canEdit || busy}
-                  className="flex h-9 w-9 items-center justify-center rounded-full text-ash transition-colors hover:bg-mist hover:text-blueprint disabled:opacity-40"
+                  className="flex h-10 w-10 items-center justify-center rounded-full sm:h-9 sm:w-9 text-ash transition-colors hover:bg-mist hover:text-blueprint disabled:opacity-40"
                   title={dict.confirmDelete}
                 >
                   <Trash2 size={16} strokeWidth={1.5} />

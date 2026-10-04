@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -22,6 +22,21 @@ export default function Gallery({ images = [], title = "" }) {
     () => setCurrent((c) => (c - 1 + images.length) % images.length),
     [images.length]
   );
+
+  // Swipe left/right on touch screens to move between images.
+  const touchStart = useRef(null);
+  const onTouchStart = (e) => {
+    const t = e.touches[0];
+    touchStart.current = { x: t.clientX, y: t.clientY };
+  };
+  const onTouchEnd = (e) => {
+    if (!touchStart.current || images.length < 2) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchStart.current.x;
+    const dy = t.clientY - touchStart.current.y;
+    touchStart.current = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) (dx < 0 ? next : prev)();
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -68,17 +83,19 @@ export default function Gallery({ images = [], title = "" }) {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/96 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/95 p-4 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={close}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
           >
             <button
               type="button"
               onClick={close}
-              className="absolute right-5 top-5 text-bone/80 transition-colors hover:text-bone"
+              className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center text-bone/80 transition-colors hover:text-bone sm:right-5 sm:top-5"
               aria-label="Close gallery"
             >
               <X size={26} strokeWidth={1.5} />
@@ -117,7 +134,7 @@ export default function Gallery({ images = [], title = "" }) {
 
             <motion.div
               key={current}
-              className="relative h-[78vh] w-[92vw] max-w-5xl"
+              className="relative h-[78svh] w-[92vw] max-w-5xl"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}

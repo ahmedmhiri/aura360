@@ -109,12 +109,12 @@ export default function AdminMessageList({ dict, messages: initial, canEdit }) {
                   <p className="max-w-2xl whitespace-pre-wrap text-sm leading-relaxed text-graphite/90">
                     {m.body}
                   </p>
-                  <div className="mt-4 flex flex-wrap items-center gap-4">
+                  <div className="mt-2 flex flex-wrap items-center gap-x-5">
                     <a
                       href={`mailto:${m.email}?subject=${encodeURIComponent(
                         m.subject ? `Re: ${m.subject}` : ""
                       )}`}
-                      className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-annotation text-blueprint"
+                      className="inline-flex items-center gap-2 py-3 font-mono text-[12px] uppercase tracking-annotation text-blueprint"
                     >
                       <Mail size={14} strokeWidth={1.75} />
                       {dict.reply}
@@ -123,7 +123,7 @@ export default function AdminMessageList({ dict, messages: initial, canEdit }) {
                       type="button"
                       disabled={!canEdit || busy}
                       onClick={() => setRead(m.id, !m.read)}
-                      className="font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink disabled:opacity-40"
+                      className="py-3 font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink disabled:opacity-40"
                     >
                       {m.read ? dict.markUnread : dict.markRead}
                     </button>
@@ -131,7 +131,7 @@ export default function AdminMessageList({ dict, messages: initial, canEdit }) {
                       type="button"
                       disabled={!canEdit || busy}
                       onClick={() => remove(m.id)}
-                      className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-blueprint disabled:opacity-40"
+                      className="inline-flex items-center gap-2 py-3 font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-blueprint disabled:opacity-40"
                     >
                       <Trash2 size={14} strokeWidth={1.75} />
                       {dict.delete}

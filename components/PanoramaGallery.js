@@ -16,7 +16,9 @@ export default function PanoramaGallery({ images = [], title = "" }) {
 
   return (
     <div>
-      <div className="plate relative aspect-[16/9] w-full overflow-hidden bg-mist sm:aspect-[2/1]">
+      {/* Taller on phones: a 16:9 strip is only ~220px high on a portrait
+          screen, too small to look around in. */}
+      <div className="plate relative aspect-[4/5] w-full overflow-hidden bg-mist sm:aspect-[16/9] lg:aspect-[2/1]">
         <Pano360 src={images[active]} className="absolute inset-0 h-full w-full" />
       </div>
 

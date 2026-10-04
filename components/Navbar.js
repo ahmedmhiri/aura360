@@ -36,6 +36,10 @@ export default function Navbar({ locale, dict }) {
     { href: `/${locale}/contact`, label: dict.contact },
   ];
 
+  // At the top of the home page the bar floats over the dark hero photo, so
+  // its text switches to light until the page scrolls or the menu opens.
+  const overHero = pathname === `/${locale}` && !scrolled && !open;
+
   const isActive = (href) =>
     pathname === href || (href !== `/${locale}` && pathname.startsWith(href));
 
@@ -61,13 +65,19 @@ export default function Navbar({ locale, dict }) {
       <nav className="mx-auto flex max-w-site items-center justify-between px-5 py-4 sm:px-8 md:py-5">
         <Link
           href={`/${locale}`}
-          className="font-display text-lg font-bold uppercase tracking-tightest text-ink"
+          className={`-my-2 py-2 font-display text-lg font-bold uppercase tracking-tightest transition-colors duration-500 ${
+            overHero ? "text-bone" : "text-ink"
+          }`}
           aria-label="AURA360LAB — home"
         >
-          AURA<span className="text-blueprint">360</span>LAB
+          AURA<span className={overHero ? "text-blueprint-soft" : "text-blueprint"}>360</span>LAB
         </Link>
 
-        <div className="hidden items-center gap-9 md:flex">
+        <div
+          className={`hidden items-center gap-9 transition-colors duration-500 md:flex ${
+            overHero ? "[&_a]:!text-bone" : ""
+          }`}
+        >
           {links.map((l) => (
             <Link
               key={l.href}
@@ -106,7 +116,9 @@ export default function Navbar({ locale, dict }) {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="text-ink md:hidden"
+          className={`-mr-2.5 flex h-11 w-11 items-center justify-center transition-colors duration-500 md:hidden ${
+            overHero ? "text-bone" : "text-ink"
+          }`}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >

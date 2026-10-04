@@ -185,7 +185,7 @@ export default function ImageUploader({
           )}
         </button>
 
-        <div className="flex flex-1 items-center gap-2 border-b border-line pb-1.5">
+        <div className="flex min-w-[14rem] flex-1 items-center gap-2 border-b border-line pb-1.5">
           <Link2 size={15} strokeWidth={1.5} className="text-ash" />
           <input
             type="url"
@@ -198,12 +198,12 @@ export default function ImageUploader({
               }
             }}
             placeholder="https://…  (or paste an image URL)"
-            className="w-full bg-transparent font-mono text-[12px] text-ink placeholder:text-ash/70 focus:outline-none"
+            className="w-full bg-transparent font-mono text-base text-ink placeholder:text-ash/70 focus:outline-none sm:text-[12px]"
           />
           <button
             type="button"
             onClick={addUrl}
-            className="font-mono text-[12px] uppercase tracking-annotation text-blueprint"
+            className="-my-2 px-1 py-2 font-mono text-[12px] uppercase tracking-annotation text-blueprint"
           >
             Add
           </button>

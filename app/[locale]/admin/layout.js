@@ -19,7 +19,7 @@ export default async function AdminLayout({ children, params }) {
   return (
     <div className="min-h-screen bg-bone">
       <header className="border-b hairline">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-y-1 px-5 py-4 sm:flex-nowrap sm:px-8">
           <Link
             href={`/${locale}`}
             className="font-display text-base font-bold uppercase tracking-tightest text-ink"
@@ -31,7 +31,9 @@ export default async function AdminLayout({ children, params }) {
           </Link>
 
           {authed ? (
-            <nav className="hidden items-center gap-6 sm:flex">
+            // On phones the menu drops to its own scrollable row under the logo
+            // (it used to be hidden there, leaving Videos/Messages unreachable).
+            <nav className="order-last -mx-5 flex w-[calc(100%+2.5rem)] items-center gap-6 overflow-x-auto px-5 sm:order-none sm:mx-0 sm:w-auto sm:overflow-visible sm:px-0 [&>a]:shrink-0 [&>a]:py-3 sm:[&>a]:py-0">
               <Link
                 href={`/${locale}/admin`}
                 className="font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink"
@@ -66,7 +68,7 @@ export default async function AdminLayout({ children, params }) {
 
           <Link
             href={`/${locale}`}
-            className="inline-flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink"
+            className="-my-3 inline-flex items-center gap-1.5 py-3 font-mono text-[12px] uppercase tracking-annotation text-ash transition-colors hover:text-ink"
           >
             View site
             <ArrowUpRight size={14} strokeWidth={1.5} />

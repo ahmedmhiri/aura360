@@ -51,7 +51,7 @@ export default function PortfolioGrid({
     <div>
       {/* Controls */}
       <div className="flex flex-col gap-6 border-y hairline py-6 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-wrap items-center gap-x-7 gap-y-3" role="tablist" aria-label="Filter by category">
+        <div className="-my-3 flex flex-wrap items-center gap-x-7" role="tablist" aria-label="Filter by category">
           {tabs.map((t) => (
             <button
               key={t.slug}
@@ -59,7 +59,7 @@ export default function PortfolioGrid({
               role="tab"
               aria-selected={active === t.slug}
               onClick={() => setActive(t.slug)}
-              className={`relative font-mono text-[12px] uppercase tracking-annotation transition-opacity ${
+              className={`relative py-3 font-mono text-[12px] uppercase tracking-annotation transition-opacity ${
                 active === t.slug ? "text-ink opacity-100" : "text-ash opacity-70 hover:opacity-100"
               }`}
             >
@@ -67,7 +67,7 @@ export default function PortfolioGrid({
               {active === t.slug && (
                 <motion.span
                   layoutId="tab-underline"
-                  className="absolute -bottom-1.5 left-0 h-px w-full bg-ink"
+                  className="absolute bottom-1.5 left-0 h-px w-full bg-ink"
                 />
               )}
             </button>
@@ -82,7 +82,7 @@ export default function PortfolioGrid({
             onChange={(e) => setQuery(e.target.value)}
             placeholder={dict.searchPlaceholder}
             aria-label={dict.searchPlaceholder}
-            className="w-full bg-transparent font-mono text-[13px] uppercase tracking-wide text-ink placeholder:text-ash/70 focus:outline-none"
+            className="w-full bg-transparent font-mono text-base uppercase tracking-wide text-ink placeholder:text-ash/70 focus:outline-none sm:text-[13px]"
           />
         </div>
       </div>

@@ -36,17 +36,18 @@ function ContactList({ items, external = false }) {
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             className="group flex items-center justify-between gap-4 border-b hairline py-5 transition-colors hover:bg-ink hover:px-4"
           >
-            <span className="flex items-center gap-4">
+            <span className="flex min-w-0 items-center gap-4">
               <Icon
                 size={20}
                 strokeWidth={1.5}
-                className="text-ash transition-colors group-hover:text-bone"
+                className="shrink-0 text-ash transition-colors group-hover:text-bone"
               />
-              <span>
+              <span className="min-w-0">
                 <span className="annotation block text-ash transition-colors group-hover:text-bone/60">
                   {label}
                 </span>
-                <span className="mt-1 block text-base text-ink transition-colors group-hover:text-bone">
+                {/* Long emails wrap instead of pushing past narrow screens. */}
+                <span className="mt-1 block break-words text-base text-ink transition-colors group-hover:text-bone">
                   {value}
                 </span>
               </span>
