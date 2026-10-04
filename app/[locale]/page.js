@@ -1,5 +1,6 @@
 import { getDictionary } from "@/i18n/dictionaries";
 import { getFeaturedProjects, getProjectBySlug } from "@/lib/projects";
+import { getServiceVideos } from "@/lib/service-videos";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import FeaturedProjects from "@/components/FeaturedProjects";
@@ -28,6 +29,7 @@ export default async function HomePage({ params }) {
     })
   );
   const servicePreviews = Object.fromEntries(previewEntries.filter(([, src]) => src));
+  const serviceVideos = await getServiceVideos();
 
   const heroImages = featured.length
     ? featured
@@ -39,7 +41,7 @@ export default async function HomePage({ params }) {
   return (
     <>
       <Hero locale={locale} dict={dict.hero} images={heroImages} />
-      <Services locale={locale} dict={dict.services} previews={servicePreviews} />
+      <Services locale={locale} dict={dict.services} previews={servicePreviews} videos={serviceVideos} />
       <FeaturedProjects locale={locale} dict={dict.featured} projects={featured} />
       <AboutPreview locale={locale} dict={dict.aboutPreview} />
       <ContactCTA locale={locale} dict={dict.contactCta} />

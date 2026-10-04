@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram, Linkedin, Facebook, Globe } from "lucide-react";
+import { Instagram, Linkedin, Facebook } from "lucide-react";
 import { site } from "@/lib/site";
 
 export default function Footer({ locale, dict }) {
@@ -96,15 +96,6 @@ export default function Footer({ locale, dict }) {
                 className="text-graphite transition-colors hover:text-ink"
               >
                 <Facebook size={18} strokeWidth={1.5} />
-              </a>
-              <a
-                href={site.behanceHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Behance"
-                className="text-graphite transition-colors hover:text-ink"
-              >
-                <Globe size={18} strokeWidth={1.5} />
               </a>
             </div>
           </div>

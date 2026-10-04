@@ -30,20 +30,40 @@ export default function Pano360({ src, className = "", onInteractingChange }) {
 
     const material = new THREE.MeshBasicMaterial();
     const mesh = new THREE.Mesh(geometry, material);
+    mesh.visible = false; // hidden until the texture arrives (no white flash)
     scene.add(mesh);
+
+    // Panoramas are stored at up to 8192px for large screens. Phones get a
+    // 4096px copy made on the fly: a full 8192×4096 texture (~170 MB of GPU
+    // memory with mipmaps) can crash mobile browsers.
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const maxSize = Math.min(renderer.capabilities.maxTextureSize, coarse ? 4096 : 8192);
 
     const loader = new THREE.TextureLoader();
     let disposed = false;
     loader.load(src, (texture) => {
-      texture.colorSpace = THREE.SRGBColorSpace;
-      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-      texture.minFilter = THREE.LinearMipmapLinearFilter;
       if (disposed) {
         texture.dispose();
         return;
       }
+      const img = texture.image;
+      if (img.width > maxSize) {
+        const scale = maxSize / img.width;
+        const canvas2d = document.createElement("canvas");
+        canvas2d.width = maxSize;
+        canvas2d.height = Math.round(img.height * scale);
+        const ctx = canvas2d.getContext("2d");
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(img, 0, 0, canvas2d.width, canvas2d.height);
+        texture.image = canvas2d;
+      }
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      texture.minFilter = THREE.LinearMipmapLinearFilter;
+      texture.needsUpdate = true;
       material.map = texture;
       material.needsUpdate = true;
+      mesh.visible = true;
     });
 
     let lon = 0;
@@ -54,9 +74,14 @@ export default function Pano360({ src, className = "", onInteractingChange }) {
     let lastInteraction = performance.now();
 
     canvas.style.cursor = "grab";
+    // On touch screens a sideways swipe turns the view while an up/down swipe
+    // still scrolls the page (the hero viewer fills the whole screen). Without
+    // this the browser claims every gesture and cancels the drag.
+    canvas.style.touchAction = "pan-y";
 
     const onPointerDown = (e) => {
       dragging = true;
+      canvas.setPointerCapture?.(e.pointerId);
       lastX = e.clientX;
       lastY = e.clientY;
       lastInteraction = performance.now();
@@ -83,6 +108,8 @@ export default function Pano360({ src, className = "", onInteractingChange }) {
     canvas.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerup", onPointerUp);
+    // A cancelled gesture must end the drag too, or auto-rotate never resumes.
+    window.addEventListener("pointercancel", onPointerUp);
 
     const resize = () => {
       const { clientWidth, clientHeight } = canvas;
@@ -123,6 +150,7 @@ export default function Pano360({ src, className = "", onInteractingChange }) {
       canvas.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
       geometry.dispose();
       material.map?.dispose();
       material.dispose();

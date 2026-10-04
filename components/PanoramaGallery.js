@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const Pano360 = dynamic(() => import("@/components/Pano360"), { ssr: false });
 
@@ -31,8 +32,8 @@ export default function PanoramaGallery({ images = [], title = "" }) {
               }`}
               aria-label={`${title} — panorama ${i + 1}`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt="" className="h-full w-full object-cover" />
+              {/* Small optimized thumbnail — not the full 8192px panorama. */}
+              <Image src={src} alt="" fill sizes="112px" className="object-cover" />
             </button>
           ))}
         </div>

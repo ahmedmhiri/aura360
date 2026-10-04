@@ -5,6 +5,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import ImageUploader from "@/components/admin/ImageUploader";
+import VideoUploader from "@/components/admin/VideoUploader";
+
+// 8192×4096 keeps a 360° panorama sharp on large screens; at 4096 the viewer
+// stretches each source pixel ~1.5× and the image looks soft.
+const PANO_MAX_DIMENSION = 8192;
 
 const slugify = (s) =>
   s
@@ -31,6 +36,7 @@ export default function ProjectForm({
     slug: initial?.slug || "",
     categoryId: initial?.categoryId || categories[0]?.id || "",
     location: initial?.location || "",
+    clientName: initial?.clientName || "",
     year: initial?.year || "",
     typeEn: initial?.typeEn || "",
     typeFr: initial?.typeFr || "",
@@ -41,6 +47,7 @@ export default function ProjectForm({
     coverImage: initial?.coverImage || "",
     coverImage360: initial?.coverImage360 ?? false,
     panoramas: initial?.panoramas || [],
+    videos: initial?.videos || [],
     gallery: initial?.gallery || [],
     featured: initial?.featured ?? false,
     published: initial?.published ?? true,
@@ -157,6 +164,18 @@ export default function ProjectForm({
           </div>
         </div>
 
+        {/* Client — optional; left empty, the project stays anonymous */}
+        <div>
+          <label className={labelClass} htmlFor="clientName">{f.clientName}</label>
+          <input
+            id="clientName"
+            value={form.clientName}
+            onChange={(e) => set("clientName", e.target.value)}
+            placeholder={f.clientNameHint}
+            className={field}
+          />
+        </div>
+
         {/* Types */}
         <div className="grid gap-7 sm:grid-cols-2">
           <div>
@@ -195,9 +214,10 @@ export default function ProjectForm({
 
         {/* Images */}
         {/* The 360 checkbox sits above the uploader so it is set before the
-            file is chosen. Covers always upload at panorama resolution anyway:
-            an image downscaled at upload time can never be sharpened again,
-            and non-360 covers are resized on delivery by next/image. */}
+            file is chosen. Covers and panoramas go straight to Blob storage
+            at up to 8192px (originals that fit are kept untouched): an image
+            downscaled at upload time can never be sharpened again, and the
+            viewer itself scales down for phones. */}
         <label className="flex cursor-pointer items-center gap-3">
           <input
             type="checkbox"
@@ -214,9 +234,10 @@ export default function ProjectForm({
           value={form.coverImage}
           onChange={(v) => set("coverImage", v)}
           dict={dict}
-          maxDimension={4096}
+          maxDimension={PANO_MAX_DIMENSION}
           quality={0.92}
-          warnBelowWidth={form.coverImage360 ? 4000 : 0}
+          warnBelowWidth={form.coverImage360 ? 6000 : 0}
+          direct
         />
         <ImageUploader
           label={f.panoramas || "360° Panoramas (shown before the gallery)"}
@@ -224,9 +245,16 @@ export default function ProjectForm({
           onChange={(v) => set("panoramas", v)}
           multiple
           dict={dict}
-          maxDimension={4096}
+          maxDimension={PANO_MAX_DIMENSION}
           quality={0.92}
-          warnBelowWidth={4000}
+          warnBelowWidth={6000}
+          direct
+        />
+        <VideoUploader
+          label={f.videos}
+          value={form.videos}
+          onChange={(v) => set("videos", v)}
+          dict={dict}
         />
         <ImageUploader
           label={f.gallery}

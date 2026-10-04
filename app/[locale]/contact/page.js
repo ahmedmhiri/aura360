@@ -6,7 +6,6 @@ import {
   Instagram,
   Linkedin,
   Facebook,
-  Globe,
   ArrowUpRight,
 } from "lucide-react";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -82,7 +81,12 @@ export default async function ContactPage({ params }) {
       value: phone.label,
       href: phone.href,
     })),
-    { Icon: MessageCircle, label: t.whatsapp, value: site.whatsapp, href: site.whatsappHref },
+    ...site.phones.map((phone) => ({
+      Icon: MessageCircle,
+      label: t.whatsapp,
+      value: phone.label,
+      href: phone.whatsappHref,
+    })),
     {
       Icon: MapPin,
       label: t.address,
@@ -97,7 +101,6 @@ export default async function ContactPage({ params }) {
     { Icon: Instagram, label: "Instagram", value: site.instagram, href: site.instagramHref },
     { Icon: Linkedin, label: "LinkedIn", value: site.linkedin, href: site.linkedinHref },
     { Icon: Facebook, label: "Facebook", value: site.facebook, href: site.facebookHref },
-    { Icon: Globe, label: "Behance", value: site.behance, href: site.behanceHref },
   ];
 
   return (

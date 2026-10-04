@@ -71,7 +71,7 @@ export default async function LocaleLayout({ children, params }) {
     name: site.name,
     url: base,
     description: dict.meta.defaultDescription,
-    sameAs: [site.instagramHref, site.linkedinHref, site.behanceHref].filter(Boolean),
+    sameAs: [site.instagramHref, site.linkedinHref, site.facebookHref].filter(Boolean),
   };
 
   return (

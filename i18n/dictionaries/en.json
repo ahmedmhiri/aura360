@@ -38,7 +38,9 @@
         "description": "Materials, furniture and atmosphere composed into interiors that feel considered down to the last detail."
       }
     },
-    "learnMore": "Discuss your project"
+    "learnMore": "Discuss your project",
+    "watchVideo": "Watch the video",
+    "closeVideo": "Close video"
   },
   "featured": {
     "eyebrow": "Selected works",
@@ -78,7 +80,9 @@
     "gallery": "Gallery",
     "panoramas": "360° Panoramas",
     "related": "Related projects",
-    "nextProject": "Next project"
+    "nextProject": "Next project",
+    "client": "Client",
+    "videos": "Videos"
   },
   "about": {
     "title": "Studio",
@@ -196,12 +200,15 @@
       "gallery": "Gallery images",
       "panoramas": "360° Panoramas (shown before the gallery)",
       "featured": "Show on home page",
-      "published": "Published (visible on the site)"
+      "published": "Published (visible on the site)",
+      "clientName": "Client (optional)",
+      "clientNameHint": "Leave empty to keep the client anonymous",
+      "videos": "Videos (MP4, shown after the 360° panoramas)"
     },
     "upload": "Upload image",
     "uploading": "Uploading…",
     "remove": "Remove",
-    "lowResWarning": "This image is only {width}px wide. 360° panoramas need at least 4000px to stay sharp — upload the original render if you have it.",
+    "lowResWarning": "This image is only {width}px wide. 360° panoramas look best at 8000px wide or more (at least 6000px) — upload the original render if you have it.",
     "messages": {
       "title": "Messages",
       "subtitle": "Project inquiries submitted through the contact form.",
@@ -213,6 +220,20 @@
       "delete": "Delete",
       "confirmDelete": "Delete this message? This cannot be undone.",
       "noSubject": "(no subject)"
-    }
+    },
+    "videos": {
+      "title": "Videos",
+      "subtitle": "One video per service, played from the Services section of the home page.",
+      "upload": "Upload video",
+      "replace": "Replace video",
+      "uploading": "Uploading…",
+      "remove": "Remove",
+      "hasVideo": "Video online",
+      "noVideo": "No video yet",
+      "confirmDelete": "Remove this video from the site? The file will be deleted.",
+      "videoNotOptimized": "This video isn't web-optimized, so it may take a few seconds to start playing. When exporting, tick \"Fast Start\" (Premiere / Media Encoder) or \"Web Optimized\" (HandBrake), then upload it again."
+    },
+    "uploadVideo": "Upload video",
+    "videoNotOptimized": "this video isn't web-optimized, so it may take a few seconds to start playing. When exporting, tick \"Fast Start\" (Premiere / Media Encoder) or \"Web Optimized\" (HandBrake), then upload it again."
   }
 }

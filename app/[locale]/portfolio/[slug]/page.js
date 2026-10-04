@@ -159,6 +159,7 @@ export default async function ProjectDetailPage({ params }) {
             <Reveal delay={0.1}>
               <div>
                 <MetaRow label={dict.project.category}>{categoryName}</MetaRow>
+                <MetaRow label={dict.project.client}>{project.clientName}</MetaRow>
                 <MetaRow label={dict.project.type}>{type}</MetaRow>
                 <MetaRow label={dict.project.location}>{project.location}</MetaRow>
                 <MetaRow label={dict.project.year}>{project.year}</MetaRow>
@@ -188,6 +189,33 @@ export default async function ProjectDetailPage({ params }) {
           </Reveal>
           <div className="mt-8">
             <PanoramaGallery images={project.panoramas} title={title} />
+          </div>
+        </div>
+      ) : null}
+
+      {/* Videos */}
+      {project.videos?.length ? (
+        <div className="mx-auto mt-20 max-w-site px-5 sm:px-8 md:mt-28">
+          <Reveal>
+            <span className="annotation text-blueprint">{dict.project.videos}</span>
+          </Reveal>
+          <div
+            className={`mt-8 grid grid-cols-1 gap-4 sm:gap-6 ${
+              project.videos.length > 1 ? "md:grid-cols-2" : ""
+            }`}
+          >
+            {project.videos.map((src, i) => (
+              <Reveal key={src} delay={i * 0.05}>
+                <video
+                  src={src}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={`${title} — ${dict.project.videos} ${i + 1}`}
+                  className="aspect-video w-full bg-ink"
+                />
+              </Reveal>
+            ))}
           </div>
         </div>
       ) : null}

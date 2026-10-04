@@ -32,11 +32,13 @@ model Project {
   typeEn        String   @default("")
   typeFr        String   @default("")
   location      String   @default("")
+  clientName    String   @default("")
   year          Int?
   coverImage    String   @default("")
   coverImage360 Boolean  @default(false)
   gallery       String[] @default([])
   panoramas     String[] @default([])
+  videos        String[] @default([])
   servicesEn    String[] @default([])
   servicesFr    String[] @default([])
   featured      Boolean  @default(false)
@@ -52,6 +54,14 @@ model Project {
   @@index([categoryId])
   @@index([featured])
   @@index([published])
+}
+
+// One showcase video per service (architecture / interior / visualization),
+// uploaded from the admin and played from the home page Services section.
+model ServiceVideo {
+  service   String   @id
+  url       String
+  updatedAt DateTime @updatedAt
 }
 
 model Message {

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Upload, X, Plus, Link2 } from "lucide-react";
+import { uploadDirect } from "@/lib/direct-upload";
 
 const MAX_DIMENSION = 4096;
 const JPEG_QUALITY = 0.88;
@@ -27,9 +28,18 @@ function loadImage(src) {
 // Resizes the image client-side (preserving aspect ratio up to maxDimension)
 // then uploads it to /api/upload, returning { url, sourceWidth } — the source
 // width lets callers warn about low-resolution originals.
-async function uploadImage(file, maxDimension = MAX_DIMENSION, quality = JPEG_QUALITY) {
+// With `direct`, the file goes straight to Vercel Blob instead (no 4.5 MB
+// request limit), and a JPEG that already fits is uploaded untouched — no
+// re-compression — which is what keeps 360° panoramas sharp.
+async function uploadImage(file, maxDimension = MAX_DIMENSION, quality = JPEG_QUALITY, direct = false) {
   const dataUrl = await readFileAsDataURL(file);
   const img = await loadImage(dataUrl);
+
+  if (direct && file.type === "image/jpeg" && Math.max(img.width, img.height) <= maxDimension) {
+    const url = await uploadDirect(file, "images/upload.jpg", "image/jpeg");
+    return { url, sourceWidth: img.width };
+  }
+
   const scale = Math.min(1, maxDimension / Math.max(img.width, img.height));
   const width = Math.max(1, Math.round(img.width * scale));
   const height = Math.max(1, Math.round(img.height * scale));
@@ -44,6 +54,11 @@ async function uploadImage(file, maxDimension = MAX_DIMENSION, quality = JPEG_QU
 
   // Convert canvas to Blob and POST to the upload API.
   const blob = await new Promise((res) => canvas.toBlob(res, "image/jpeg", quality));
+  if (!blob) throw new Error("This image is too large for the browser to resize.");
+  if (direct) {
+    const url = await uploadDirect(blob, "images/upload.jpg", "image/jpeg");
+    return { url, sourceWidth: img.width };
+  }
   const form = new FormData();
   form.append("file", blob, "image.jpg");
 
@@ -63,6 +78,8 @@ export default function ImageUploader({
   quality = JPEG_QUALITY,
   // When > 0, warn (without blocking) if a source image is narrower than this.
   warnBelowWidth = 0,
+  // Upload straight to Vercel Blob (large files, originals kept untouched).
+  direct = false,
 }) {
   const inputRef = useRef(null);
   const [busy, setBusy] = useState(false);
@@ -84,7 +101,7 @@ export default function ImageUploader({
       const uploaded = [];
       let narrowest = Infinity;
       for (const file of files) {
-        const { url, sourceWidth } = await uploadImage(file, maxDimension, quality);
+        const { url, sourceWidth } = await uploadImage(file, maxDimension, quality, direct);
         uploaded.push(url);
         narrowest = Math.min(narrowest, sourceWidth);
       }

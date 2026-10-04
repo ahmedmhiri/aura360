@@ -56,6 +56,14 @@ describe("toProjectData", () => {
     expect(toProjectData({ ...formInput, year: "" }).year).toBeNull();
     expect(toProjectData({ ...formInput, year: "abc" }).year).toBeNull();
   });
+
+  it("trims the client name and defaults it to empty (anonymous)", () => {
+    expect(toProjectData({ ...formInput, clientName: "  Café Dose SARL " }).clientName).toBe(
+      "Café Dose SARL"
+    );
+    expect(toProjectData(formInput).clientName).toBe("");
+    expect(serializeProject({ ...toProjectData(formInput), categorySlug: "x" }).clientName).toBe("");
+  });
 });
 
 describe("validateProjectData", () => {
@@ -94,6 +102,12 @@ describe("toProjectData → serializeProject round-trip", () => {
     expect(p.coverImage360).toBe(true);
     expect(p.gallery).toEqual(["/uploads/1.jpg", "/uploads/2.jpg"]);
     expect(p.panoramas).toEqual(["/uploads/pano-1.jpg"]);
+  });
+
+  it("keeps project videos through the full cycle and defaults to none", () => {
+    const videos = ["https://x.public.blob.vercel-storage.com/videos/projects/a.mp4"];
+    expect(serializeProject(dbRow({ ...formInput, videos })).videos).toEqual(videos);
+    expect(serializeProject(dbRow()).videos).toEqual([]);
   });
 
   it("groups localized fields as { en, fr }", () => {

@@ -38,7 +38,9 @@
         "description": "Matériaux, mobilier et atmosphère composés en intérieurs pensés jusque dans le moindre détail."
       }
     },
-    "learnMore": "Parler de votre projet"
+    "learnMore": "Parler de votre projet",
+    "watchVideo": "Voir la vidéo",
+    "closeVideo": "Fermer la vidéo"
   },
   "featured": {
     "eyebrow": "Travaux sélectionnés",
@@ -78,7 +80,9 @@
     "gallery": "Galerie",
     "panoramas": "Panoramas 360°",
     "related": "Projets liés",
-    "nextProject": "Projet suivant"
+    "nextProject": "Projet suivant",
+    "client": "Client",
+    "videos": "Vidéos"
   },
   "about": {
     "title": "Studio",
@@ -196,12 +200,15 @@
       "gallery": "Images de galerie",
       "panoramas": "Panoramas 360° (affichés avant la galerie)",
       "featured": "Afficher sur l'accueil",
-      "published": "Publié (visible sur le site)"
+      "published": "Publié (visible sur le site)",
+      "clientName": "Client (facultatif)",
+      "clientNameHint": "Laisser vide pour garder le client anonyme",
+      "videos": "Vidéos (MP4, affichées après les panoramas 360°)"
     },
     "upload": "Téléverser une image",
     "uploading": "Téléversement…",
     "remove": "Retirer",
-    "lowResWarning": "Cette image ne fait que {width}px de large. Un panorama 360° doit faire au moins 4000px pour rester net — téléversez le rendu original si possible.",
+    "lowResWarning": "Cette image ne fait que {width}px de large. Un panorama 360° est optimal à 8000px de large ou plus (6000px minimum) — téléversez le rendu original si possible.",
     "messages": {
       "title": "Messages",
       "subtitle": "Demandes de projet envoyées via le formulaire de contact.",
@@ -213,6 +220,20 @@
       "delete": "Supprimer",
       "confirmDelete": "Supprimer ce message ? Action irréversible.",
       "noSubject": "(sans objet)"
-    }
+    },
+    "videos": {
+      "title": "Vidéos",
+      "subtitle": "Une vidéo par service, lue depuis la section Services de la page d'accueil.",
+      "upload": "Téléverser une vidéo",
+      "replace": "Remplacer la vidéo",
+      "uploading": "Téléversement…",
+      "remove": "Supprimer",
+      "hasVideo": "Vidéo en ligne",
+      "noVideo": "Pas encore de vidéo",
+      "confirmDelete": "Retirer cette vidéo du site ? Le fichier sera supprimé.",
+      "videoNotOptimized": "Cette vidéo n'est pas optimisée pour le web : sa lecture peut mettre quelques secondes à démarrer. À l'export, cochez « Fast Start » (Premiere / Media Encoder) ou « Web Optimized » (HandBrake), puis téléversez-la à nouveau."
+    },
+    "uploadVideo": "Téléverser une vidéo",
+    "videoNotOptimized": "cette vidéo n'est pas optimisée pour le web : sa lecture peut mettre quelques secondes à démarrer. À l'export, cochez « Fast Start » (Premiere / Media Encoder) ou « Web Optimized » (HandBrake), puis téléversez-la à nouveau."
   }
 }
