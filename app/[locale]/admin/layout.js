@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isAuthenticated } from "@/lib/auth";
 import prisma, { isDbEnabled } from "@/lib/prisma";
+import Logo from "@/components/Logo";
 
 export const metadata = {
   title: "Studio admin",
@@ -22,10 +23,10 @@ export default async function AdminLayout({ children, params }) {
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-y-1 px-5 py-4 sm:flex-nowrap sm:px-8">
           <Link
             href={`/${locale}`}
-            className="font-display text-base font-bold uppercase tracking-tightest text-ink"
+            className="inline-flex items-center text-ink"
           >
-            AURA<span className="text-blueprint">360</span>LAB
-            <span className="ml-3 align-middle font-mono text-[11px] font-normal uppercase tracking-annotation text-ash">
+            <Logo className="h-5 w-auto" title="AURA360LAB" />
+            <span className="ml-3 font-mono text-[11px] font-normal uppercase tracking-annotation text-ash">
               {dict.admin.title}
             </span>
           </Link>

@@ -12,7 +12,7 @@ const SERVICES = [
 ];
 
 // `previews` maps a service key to a render shown on hover; a service without
-// one (architecture, until the studio has a logo file) shows the wordmark.
+// one (architecture, by the studio's choice) shows the AURA logo.
 // `videos` maps a service key to the video uploaded in the admin.
 // The whole row links to the portfolio through a stretched link, so the
 // video button can sit inside it without nesting interactive elements.
@@ -87,10 +87,9 @@ export default function Services({ locale, dict, previews = {}, videos = {} }) {
                       className="object-cover"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center border border-bone/30 bg-ink">
-                      <span className="font-display text-lg font-bold uppercase tracking-tightest text-bone">
-                        AURA<span className="text-blueprint-soft">360</span>LAB
-                      </span>
+                    <div className="flex h-full w-full items-center justify-center border border-bone/30 bg-ink px-7">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src="/brand/aura360lab-logo-light.svg" alt="" className="w-full" />
                     </div>
                   )}
                 </div>

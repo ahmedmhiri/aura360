@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Instagram, Linkedin, Facebook } from "lucide-react";
 import { site } from "@/lib/site";
+import Logo from "@/components/Logo";
 
 export default function Footer({ locale, dict }) {
   const year = new Date().getFullYear();
@@ -16,11 +17,8 @@ export default function Footer({ locale, dict }) {
       <div className="mx-auto max-w-site px-5 py-16 sm:px-8 md:py-20">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <Link
-              href={`/${locale}`}
-              className="font-display text-2xl font-bold uppercase tracking-tightest text-ink"
-            >
-              AURA<span className="text-blueprint">360</span>LAB
+            <Link href={`/${locale}`} className="inline-block text-ink" aria-label="AURA360LAB — home">
+              <Logo className="h-8 w-auto" title="AURA360LAB" />
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-graphite/80">
               {dict.footer.tagline}

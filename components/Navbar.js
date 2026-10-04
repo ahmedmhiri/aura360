@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { locales, localeNames } from "@/i18n/config";
+import Logo from "@/components/Logo";
 
 export default function Navbar({ locale, dict }) {
   const pathname = usePathname() || `/${locale}`;
@@ -65,12 +66,12 @@ export default function Navbar({ locale, dict }) {
       <nav className="mx-auto flex max-w-site items-center justify-between px-5 py-4 sm:px-8 md:py-5">
         <Link
           href={`/${locale}`}
-          className={`-my-2 py-2 font-display text-lg font-bold uppercase tracking-tightest transition-colors duration-500 ${
+          className={`-my-3 py-3 transition-colors duration-500 ${
             overHero ? "text-bone" : "text-ink"
           }`}
           aria-label="AURA360LAB — home"
         >
-          AURA<span className={overHero ? "text-blueprint-soft" : "text-blueprint"}>360</span>LAB
+          <Logo className="h-[22px] w-auto md:h-6" title="AURA360LAB" />
         </Link>
 
         <div
