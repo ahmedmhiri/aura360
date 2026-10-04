@@ -64,7 +64,11 @@ export default function Gallery({ images = [], title = "" }) {
             type="button"
             onClick={() => show(i)}
             className={`group relative w-full overflow-hidden bg-mist ${
-              i % 3 === 0 ? "sm:col-span-2 aspect-[16/9]" : "aspect-[4/3]"
+              // Every third image is wide; a last image that would sit alone
+              // in a half-width cell goes wide too, so no empty hole is left.
+              i % 3 === 0 || (i === images.length - 1 && i % 3 === 1)
+                ? "sm:col-span-2 aspect-[16/9]"
+                : "aspect-[4/3]"
             }`}
             aria-label={`Open image ${i + 1}`}
           >

@@ -3,9 +3,10 @@ import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion";
 import ProjectCard from "@/components/ProjectCard";
 
-// Staggered heights for a quietly asymmetric, gallery-like grid.
-const ASPECTS = ["tall", "portrait", "portrait", "portrait", "tall", "portrait"];
-
+// Quietly asymmetric, gallery-like grid: equal portrait cards in even rows,
+// with the middle column dropped down on large screens. (Row-spanning cards
+// left large empty holes with six projects, under the first card and beside
+// the last.)
 export default function FeaturedProjects({ locale, dict, projects }) {
   if (!projects?.length) return null;
 
@@ -27,14 +28,8 @@ export default function FeaturedProjects({ locale, dict, projects }) {
 
         <div className="mt-14 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
-            <Reveal key={p.id} delay={(i % 3) * 0.08} className={i % 5 === 0 ? "lg:row-span-2" : ""}>
-              <ProjectCard
-                project={p}
-                locale={locale}
-                index={i}
-                aspect={ASPECTS[i % ASPECTS.length]}
-                priority={i < 2}
-              />
+            <Reveal key={p.id} delay={(i % 3) * 0.08} className={i % 3 === 1 ? "lg:mt-20" : ""}>
+              <ProjectCard project={p} locale={locale} index={i} aspect="portrait" priority={i < 2} />
             </Reveal>
           ))}
         </div>
