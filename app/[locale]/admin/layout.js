@@ -25,7 +25,7 @@ export default async function AdminLayout({ children, params }) {
             href={`/${locale}`}
             className="inline-flex items-center text-ink"
           >
-            <Logo className="h-6 w-auto" title="AURA360LAB" />
+            <Logo className="h-8 w-auto" title="AURA360LAB" />
             <span className="ml-3 font-mono text-[11px] font-normal uppercase tracking-annotation text-ash">
               {dict.admin.title}
             </span>

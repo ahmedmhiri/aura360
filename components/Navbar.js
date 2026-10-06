@@ -71,7 +71,7 @@ export default function Navbar({ locale, dict }) {
           }`}
           aria-label="AURA360LAB — home"
         >
-          <Logo className="h-7 w-auto md:h-8" title="AURA360LAB" />
+          <Logo className="h-11 w-auto md:h-14" title="AURA360LAB" />
         </Link>
 
         <div

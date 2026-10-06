@@ -1,6 +1,7 @@
-// Builds the AURA360LAB logo set from one geometry: a monoline "ΛURΛ" wordmark
-// (crossbar-less A, open-bowl R, rounded ends) with the open "360°" ring,
-// redrawn from the studio's printed logo. Writes SVGs + PNG renders.
+// Builds the AURA360LAB logo set. The full logo ("ΛURΛ" + ring over "L A B")
+// is the path traced from the studio's artwork in components/logo-path.json;
+// the app icon is a Λ + ring monogram drawn from the geometry below.
+// Writes SVGs + PNG renders.
 //
 // Usage (renderer is not a project dependency):
 //   npm i --no-save @resvg/resvg-js
@@ -19,11 +20,8 @@ fs.mkdirSync(PREVIEW, { recursive: true });
 const INK = "#161615";
 const BONE = "#F5F5F3";
 
-// ---- glyphs (cap height 100, origin top-left) ----------------------------
-const A = (x) => `M${x} 100 L${x + 42} 0 L${x + 84} 100`;
-const U = (x) => `M${x} 0 V70 A30 30 0 0 0 ${x + 60} 70 V0`;
-const R = (x) =>
-  `M${x} 100 V0 M${x} 0 H${x + 22} A24 24 0 0 1 ${x + 22} 48 M${x + 27} 58 L${x + 55} 100`;
+const LOGO = require("../components/logo-path.json");
+
 // Open ring (the "360°"): a circle with a gap facing down-left.
 const ring = (cx, cy, r) => {
   const rad = (d) => (d * Math.PI) / 180;
@@ -33,16 +31,9 @@ const ring = (cx, cy, r) => {
   return `M${x0} ${y0} A${r} ${r} 0 1 1 ${x1} ${y1}`;
 };
 
-const WORD = [A(0), U(110), R(196), A(272)].join(" ");
-const RING = ring(374, 12, 10);
-const SW = 6;
-
-const wordmark = (color, { title = "AURA360LAB" } = {}) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 400 116" role="img" aria-label="${title}">
+const wordmark = (color, { title = "AURA360LAB" } = {}) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${LOGO.viewBox}" role="img" aria-label="${title}">
   <title>${title}</title>
-  <g fill="none" stroke="${color}" stroke-width="${SW}" stroke-linecap="round" stroke-linejoin="round">
-    <path d="${WORD}"/>
-    <path d="${RING}" stroke-width="${SW * 0.8}"/>
-  </g>
+  <path fill="${color}" fill-rule="evenodd" d="${LOGO.d}"/>
 </svg>
 `;
 
