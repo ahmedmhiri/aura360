@@ -77,7 +77,7 @@ Now the public site and the admin dashboard both read from your database.
 | `npm run start` | Run the production build |
 | `npm run db:migrate` | Create/apply migrations (`prisma migrate dev`) |
 | `npm run db:push` | Push schema without a migration (handy for prototyping) |
-| `npm run db:seed` | Seed categories + sample projects |
+| `npm run db:seed` | Seed categories |
 | `npm run db:studio` | Open Prisma Studio to inspect data |
 
 ---
@@ -166,7 +166,7 @@ middleware.js              # locale routing + admin gate
 ## Customizing content
 
 - **Studio details & socials** (email, phone, WhatsApp, Instagram, LinkedIn, stats, team): edit `lib/site.js`.
-- **Sample/seed projects** (used as fallback and by `db:seed`): edit `lib/sample-data.js`.
+- **Seed categories** (used as fallback and by `db:seed`): edit `lib/sample-data.js`. Projects are added in the admin.
 - **All UI text**: edit `i18n/dictionaries/en.json` and `fr.json` (keep the keys identical in both).
 - **Colors, fonts, spacing**: `tailwind.config.js` and `app/globals.css`.
 

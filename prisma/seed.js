@@ -1,4 +1,4 @@
-// Seed the database with the studio's starter content.
+// Seed the database with the studio's categories (projects come from the admin).
 // Run: npm run db:seed   (requires DATABASE_URL + `prisma migrate dev`)
 
 const { PrismaClient } = require("@prisma/client");
